@@ -1,0 +1,16 @@
+<div ngbDropdown
+     placement="bottom-left">
+  <button class="btn btn-primary"
+          id="language-selector"
+          ngbDropdownToggle>
+    {{selected.name}}
+  </button>
+  <div ngbDropdownMenu
+       aria-labelledby="language-selector">
+    <button *ngFor="let language of languages"
+            class="dropdown-item"
+            (click)="selectLanguage(language)">
+      {{language.name}}
+    </button>
+  </div>
+</div>

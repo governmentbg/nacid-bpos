@@ -1,0 +1,39 @@
+@import '../../variables';
+@import '../../mixins';
+
+.pages-container {
+  font-size: 14px;
+  margin-left: -8px;
+
+  & > * {
+    margin-left: 8px;
+    margin-top: 8px;
+  }
+}
+
+.ab-page {
+  margin:  4px 4px;
+  padding: 4px 8px;
+  color: $primary;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &.active {
+    background-color: $primary;
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.ab-page-link {
+  margin: 0px 8px;
+  color: $primary;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@include media-breakpoint-down("xs"){
+  .dots {
+    display: none;
+  }
+}

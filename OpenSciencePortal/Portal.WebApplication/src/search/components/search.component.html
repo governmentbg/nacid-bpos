@@ -1,0 +1,59 @@
+<search-filter (search)="search($event)"></search-filter>
+
+<div class="container"
+     style="padding: 40px 25px">
+
+  <div class="d-md-flex justify-content-between align-items-center filter-paginator-row">
+    <app-drawer class="order-0 order-md-1">
+      <div opener
+           class="d-flex justify-content-center">
+        <!-- <button class="btn btn-primary main">ФИЛТРИ</button> -->
+        <span class="text-primary link"
+              style="margin-top: 8px;">Филтри</span>
+      </div>
+
+      <search-sidebar [filterForm]="filterForm"
+                      (search)="handleFilterChange($event)"></search-sidebar>
+    </app-drawer>
+
+    <div *ngIf="metadata.showSidebar"
+         class="d-flex justify-content-center order-1 order-md-0"
+         style="font-size: 14px">
+      <em *ngIf="data.totalCount == 0">{{'search.noResultsFound' | translate}}</em>
+      <em *ngIf="data.totalCount != 0">
+        {{ 'search.resultCount' | translate: { count: data.items.length, totalCount: data.totalCount, timeElapsed: data.took / 1000} }}
+      </em>
+    </div>
+
+
+    <ab-paginator *ngIf="data.items?.length"
+                  class="order-2"
+                  [page]="metadata.page"
+                  [pageSize]="metadata.pageSize"
+                  [totalCount]="data.totalCount"
+                  (change)="handlePageEvent($event)"></ab-paginator>
+  </div>
+
+
+
+  <div style="padding: 16px 0;margin-bottom: 40px;">
+    <div class="d-flex justify-content-between">
+      <div *ngIf="metadata.showSidebar"
+           class="left-column">
+        <search-sidebar [filterForm]="filterForm"
+                        (search)="handleFilterChange($event)"></search-sidebar>
+      </div>
+      <div class="right-column">
+        <search-result *ngFor="let item of data.items;let i=index"
+                       [class.zero-margin]="i==0"
+                       [model]="item"></search-result>
+      </div>
+    </div>
+  </div>
+
+  <ab-paginator *ngIf="data.items?.length"
+                [page]="metadata.page"
+                [pageSize]="metadata.pageSize"
+                [totalCount]="data.totalCount"
+                (change)="handlePageEvent($event)"></ab-paginator>
+</div>

@@ -1,0 +1,118 @@
+<form #harvestingDataForm="ngForm">
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <mat-label translate>classification.creationModal.harvestUrl</mat-label>
+      <input matInput
+             name="classificationHarvestUrl"
+             #classificationHarvestUrl="ngModel"
+             [(ngModel)]="classification.harvestUrl"
+             (ngModelChange)="clearMetadataFormat()"
+             (focusout)="validateRepositoryUrl(classification.harvestUrl)"
+             required>
+      <mat-error *ngIf="classificationHarvestUrl.hasError('invalidUrl')">
+        {{ 'classification.messages.repositoryInvalidFailureMessage' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="col-sm-12">
+      <ab-nomenclature-select name="metadataFormat"
+                              restUrl="/api/MetadataHarvesting/ListMetadataFormats"
+                              placeholder="{{ 'classification.creationModal.metadataFormat' | translate }}"
+                              [filter]="{url: classification.harvestUrl}"
+                              [ngModel]="selectedMetadataFormat"
+                              (ngModelChange)="selectedMetadataFormatChanged($event?.name)"
+                              [required]="classification.isReadonly"
+                              [disabled]="!isValidRepositoryUrl">
+      </ab-nomenclature-select>
+    </div>
+
+    <div class="col-sm-12">
+      <ab-nomenclature-select name="defaultResourceType"
+                              restUrl="/api/ResourceType"
+                              placeholder="{{ 'classification.creationModal.defaultResourceType' | translate }}"
+                              [(ngModel)]="classification.defaultResourceType"
+                              (ngModelChange)="classification.defaultResourceTypeId = $event?.id"
+                              [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                              [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                              [required]="classification.isReadonly">
+      </ab-nomenclature-select>
+    </div>
+
+    <div class="col-sm-12">
+      <ab-nomenclature-select name="defaultResourceIdentifierType"
+                              restUrl="/api/ResourceIdentifierType"
+                              placeholder="{{ 'classification.creationModal.defaultResourceIdentifierType' | translate }}"
+                              [(ngModel)]="classification.defaultIdentifierType"
+                              (ngModelChange)="classification.defaultIdentifierTypeId = $event?.id"
+                              [required]="classification.isReadonly">
+      </ab-nomenclature-select>
+    </div>
+
+    <div class="col-sm-12">
+      <ab-nomenclature-select name="defaultAccessRight"
+                              restUrl="/api/AccessRight"
+                              placeholder="{{ 'classification.creationModal.defaultAccessRight' | translate }}"
+                              [(ngModel)]="classification.defaultAccessRight"
+                              (ngModelChange)="classification.defaultAccessRightId = $event?.id"
+                              [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                              [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                              [required]="classification.isReadonly">
+      </ab-nomenclature-select>
+    </div>
+
+    <div class="col-sm-12">
+      <ab-nomenclature-select name="defaultLicenseType"
+                              restUrl="/api/LicenseType"
+                              placeholder="{{ 'classification.creationModal.defaultLicenseType' | translate }}"
+                              [(ngModel)]="classification.defaultLicenseCondition"
+                              (ngModelChange)="classification.defaultLicenseConditionId = $event?.id">
+      </ab-nomenclature-select>
+    </div>
+
+    <date-selector class="col-sm-4 col-xs-12"
+                   name="defaultLicenseStartDate"
+                   [(ngModel)]="classification.defaultLicenseStartDate"
+                   placeholder="{{ 'classification.creationModal.defaultLicenseStartDate' | translate }}"
+                   [disabled]="false">
+    </date-selector>
+
+    <div *ngIf="classification.harvestUrl && isValidRepositoryUrl"
+         class="col-sm-12">
+      <mat-expansion-panel (afterExpand)="loadRepositorySets(classification.harvestUrl)">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            <div>
+              {{ 'classification.creationModal.harvestSets' | translate }}
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="col-sm-12"
+             style="padding-bottom: 16px">
+          <button (click)="changeSelectAll(true)"
+                  mat-raised-button
+                  color="primary">
+            {{ 'classification.creationModal.selectAllSets' | translate }}
+          </button>
+
+          <button (click)="changeSelectAll(false)"
+                  mat-raised-button
+                  style="margin-left: 8px;">
+            {{ 'classification.creationModal.deselectAllSets' | translate }}
+          </button>
+        </div>
+
+        <div *ngFor="let set of repositorySets; let i = index;"
+             class="col-sm-12">
+          <mat-checkbox name="set{{i}}"
+                        color="primary"
+                        [(ngModel)]="set.selected"
+                        (ngModelChange)="selectedSetChange()"
+                        class="classification-set">
+            {{ set.name }} ({{ set.spec }})
+          </mat-checkbox>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</form>

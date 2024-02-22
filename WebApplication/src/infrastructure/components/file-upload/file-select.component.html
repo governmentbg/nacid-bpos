@@ -1,0 +1,14 @@
+<input type="file"
+       name="fileInput"
+       #inputElem
+       (change)="selectFile($event)"
+       style="display:none;" />
+
+<ng-template #defaultTemplate>
+  <button mat-raised-button
+          color="primary">Добави</button>
+</ng-template>
+
+<span (click)="inputElem.click()">
+  <ng-container *ngTemplateOutlet="template || defaultTemplate"></ng-container>
+</span>

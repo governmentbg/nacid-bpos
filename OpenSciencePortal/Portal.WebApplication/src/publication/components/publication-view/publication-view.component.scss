@@ -1,0 +1,67 @@
+@import '../../../variables';
+
+.root {
+  margin-top: 48px;
+
+  .link {
+    margin-bottom: 36px;
+  }
+
+  .link::before {
+    content: "< ";
+  }
+
+  section {
+    margin: 16px 0px;
+  }
+
+  .title {
+    color: $black;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color .1s ease-in;
+
+    &.main {
+      color: $primary;
+      font-size: 24px;
+    }
+  }
+
+  .section-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-align: left;
+    color: $black;
+    margin: 0;
+    margin-right: 8px;
+    padding: 0;
+
+    &.b {
+      font-weight: bold;
+    }
+  }
+
+  * + .section-label {
+    margin-left: 16px;
+  }
+
+  .accent {
+    color: $secondary;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .accent + .accent {
+    &::before {
+      content: ";";
+      margin-right: 4px;
+    }
+  }
+
+  .data-container {
+    margin-left: -16px;
+    .d-flex {
+      margin-left: 16px;
+    }
+  } 
+}

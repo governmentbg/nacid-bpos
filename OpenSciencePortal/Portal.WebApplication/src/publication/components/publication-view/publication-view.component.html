@@ -1,0 +1,97 @@
+<div class="container root">
+  <a [routerLink]="['/search']"
+     class="link">{{ 'publication.backToSearch' | translate}}</a>
+
+  <section>
+    <h3 class="title main">
+      {{publication.titles[0]}}
+    </h3>
+
+    <h5 class="title"
+        *ngIf="!publication.titles?.length">
+      {{ 'publication.noTitle' | translate }}
+    </h5>
+
+    <h5 *ngFor="let title of publication.titles.slice(1); let i=index">
+      {{title}}
+    </h5>
+  </section>
+
+  <section class="d-flex flex-wrap align-items-center">
+    <h5 class="section-label b">{{'publication.subjects' | translate}}:</h5>
+    <span *ngFor="let subject of publication.subjects"
+          class="badge pill default">
+      {{subject}}
+    </span>
+  </section>
+
+  <section style="margin-right: 200px;">
+    <div class="d-flex flex-wrap align-items-center">
+      <h5 class="section-label">{{'publication.creators' | translate}}:</h5>
+      <span *ngFor="let creator of publication.creators"
+            class="accent">
+        {{creator}}
+      </span>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center data-container">
+      <div class="d-flex">
+        <h5 class="section-label">{{'publication.publicationYear' | translate}}:</h5>
+        <span class="accent">
+          {{publication.publicationYear}}
+        </span>
+      </div>
+
+      <!-- <div class="d-flex">
+        <h5 class="section-label">Организация:</h5>
+        <span class="accent">СУ "Климент Охридски"</span>
+      </div>
+
+      <div class="d-flex">
+        <h5 class="section-label">Тип:</h5>
+        <span class="accent">публикация</span>
+      </div>
+
+      <div class="d-flex">
+        <h5 class="section-label">Ресурс:</h5>
+        <span class="accent">интернет</span>
+      </div> -->
+
+      <div class="d-flex">
+        <h5 class="section-label">{{'publication.classifications' | translate}}:</h5>
+        <span *ngFor="let classification of publication.classifications"
+              class="accent">
+          {{classification}}
+        </span>
+      </div>
+
+
+    </div>
+  </section>
+
+  <section>
+    <p *ngFor="let description of publication.descriptions">
+      {{description}}
+    </p>
+  </section>
+
+  <section class=""
+           style="padding: 16px; background-color: whitesmoke;">
+    <h5 class="section-label"
+        style="margin-bottom: 8px;">{{'publication.files' | translate}}</h5>
+
+    <div *ngFor="let file of publication.files"
+         class="text-primary">
+      <fa-icon [icon]="faFilePdf"
+               style="margin-right: 8px;"></fa-icon>
+      <a [href]="file.url">{{file.name}}</a>
+    </div>
+
+    <div *ngFor="let file of publication.fileLocations"
+         class="text-primary">
+      <fa-icon [icon]="faFilePdf"
+               style="margin-right: 8px;"></fa-icon>
+      <a [href]="file.url">{{file.url}}</a>
+    </div>
+  </section>
+</div>

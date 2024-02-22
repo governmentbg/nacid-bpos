@@ -1,0 +1,37 @@
+$blue: #190e8f;
+// $blue: #A8B10E;
+$pastel-blue: #4941A2;
+$orange: #ff9800;
+$pastel-orange: #FFB84D;
+$white: #ffffff;
+$gray: #b4b4b4;
+$normal: #696969;
+$black: darken($normal, 75%);
+
+$primary: $blue;
+$secondary: $orange;
+
+$theme-colors : (
+  "secondary":  $secondary,
+  "normal": $normal,
+  "pastel-blue": $pastel-blue,
+  "pastel-orange": $pastel-orange
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 768px,
+  md: 959px,
+  lg: 960px,
+  xl: 1200px
+);
+
+$input-border-size: 1px;
+$border-size: 2px;

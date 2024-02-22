@@ -1,0 +1,81 @@
+@import '../../variables';
+@import '../../mixins';
+
+$btn-width: 43px;
+
+#searchFilterRoot  {
+  background-color: whitesmoke;
+  border: 1px solid transparent;
+}
+
+.row {
+  padding: 0px 8px;
+
+  & > div {
+    padding: 8px;
+  }
+}
+
+.contain-text {
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.field-type-label {
+  font-size: .9em;
+  font-weight: bold;
+  color: $normal;
+}
+
+.btn:not(.main) {
+  height: $btn-width;
+  width: $btn-width;
+}
+
+.btn + .btn {
+  margin-left: 16px;
+}
+
+.link {
+  font-size: 14px;
+}
+
+.simple-search-root {
+  padding: 48px 0px 32px 0px;
+
+  .search-row {
+    margin: 0px 150px;
+
+    div {
+      margin: 16px 8px 0px 8px;
+    }
+  }
+}
+
+@include media-breakpoint-down("lg") {
+  .simple-search-root {
+    .search-row {
+      margin: 0px 100px;
+    }
+  }
+}
+
+@include media-breakpoint-down("md") {
+  .simple-search-root {
+    padding: 32px 0px 26px 0px;
+
+    .search-row {
+      margin: 0px 25px;
+    }
+  }
+}
+
+@include media-breakpoint-down("xs") {
+  .simple-search-root {
+    .search-row {
+      margin: 0px 8px;
+    }
+  }
+}

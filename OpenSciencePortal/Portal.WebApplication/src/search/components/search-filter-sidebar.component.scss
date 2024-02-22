@@ -1,0 +1,62 @@
+@import '../../variables';
+@import '../../mixins';
+
+.category {
+  @include formToggles(16px, 1.5rem, 2, $pastel-blue, $white, $gray);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+
+  &.special .title {
+    font-family: "Roboto Slab", serif;
+    font-size: 30px;
+    font-weight: 200;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #sidebar-clear {
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: $secondary;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+
+    & > fa-icon {
+      margin-right: 4px;
+    }
+  }
+
+  // #sidebar-clear + * {
+  //   margin-top: 16px;
+  // }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .toggles {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: condensed;
+    color: $black;
+
+    & > span {
+      margin-top: 16px;
+    }
+  }
+
+  .toggles input, .toggles label {
+    cursor: pointer !important;
+  }
+
+  .link {
+    font-weight: bold;
+    text-decoration: none;
+  }
+}

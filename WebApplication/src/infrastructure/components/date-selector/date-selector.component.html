@@ -1,0 +1,13 @@
+<mat-form-field style="width: inherit;">
+  <mat-label>{{ placeholder }}</mat-label>
+  <input matInput
+         name="publicationLicenseStartDate"
+         [matDatepicker]="picker"
+         [value]="dateValue"
+         (dateInput)="changeDateValue($event)"
+         [disabled]="disabled"
+         [required]="required">
+  <mat-datepicker-toggle matSuffix
+                         [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

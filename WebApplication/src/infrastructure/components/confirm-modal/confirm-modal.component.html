@@ -1,0 +1,23 @@
+<div class="confirm-header">
+  <h4>
+    {{ data.header }}
+  </h4>
+</div>
+<div class="confirm-body">
+  <div class="data"
+       [innerHtml]="data.body | safeHtml"> </div>
+
+  <div class="confirm-actions">
+    <button *ngIf="data.showDecline"
+            mat-raised-button
+            (click)="decline()">
+      {{ data.declineText }}
+    </button>
+
+    <button mat-raised-button
+            color="primary"
+            (click)="accept()">
+      {{ data.acceptText }}
+    </button>
+  </div>
+</div>

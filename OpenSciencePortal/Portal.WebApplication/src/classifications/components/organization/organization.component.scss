@@ -1,0 +1,24 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+.root {
+  .main-areas-container {
+    justify-content: flex-start;
+  }
+
+  .main-area {
+    width: 44%;
+    margin-bottom: 16px;
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+}
+
+
+@include media-breakpoint-down("sm"){
+  .root {
+    .main-area {
+      width: 90%;
+    }
+  }
+}

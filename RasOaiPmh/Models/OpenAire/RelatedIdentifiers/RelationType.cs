@@ -1,0 +1,37 @@
+namespace NacidRas.Integrations.OaiPmhProvider.Models.OpenAire
+{
+	public enum RelationType
+	{
+		IsCitedBy,
+		Cites,
+		IsSupplementTo,
+		IsSupplementedBy,
+		IsContinuedBy,
+		Continues,
+		IsDescribedBy,
+		Describes,
+		HasVersion,
+		IsVersionOf,
+		IsNewVersionOf,
+		IsPreviousVersionOf,
+		IsPartOf,
+		HasPart,
+		IsReferencedBy,
+		References,
+		IsDocumentedBy,
+		Documents,
+		IsCompiledBy,
+		Compiles,
+		IsVariantFormOf,
+		IsOriginalFormOf,
+		IsIdenticalTo,
+		HasMetadata,
+		IsMetadataFor,
+		Reviews,
+		IsReviewedBy,
+		IsDerivedFrom,
+		IsSourceOf,
+		IsRequiredBy,
+		Requires,
+	}
+}

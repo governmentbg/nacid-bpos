@@ -1,0 +1,12 @@
+@import '../../variables';
+
+.dropdown-menu {
+  padding: 0px;
+  min-width: 0px;
+  max-width: 100px;
+  border: 1px solid $primary;
+
+  .dropdown-item {
+    padding: 0.375rem 0.75rem;
+  }
+}

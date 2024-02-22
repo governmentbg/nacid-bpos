@@ -1,0 +1,14 @@
+<button (click)="addClassification(null, $event)"
+        mat-raised-button
+        style="margin-bottom: 15px;"
+        color="primary">
+  {{ 'classification.base.addClassificationBtn' | translate }}
+</button>
+
+<div class="row">
+  <classification-viewer *ngFor="let root of roots"
+                         class="col-sm-12"
+                         style="margin-bottom: 20px;"
+                         [classification]="root"
+                         [collection]="roots"></classification-viewer>
+</div>

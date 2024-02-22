@@ -1,0 +1,80 @@
+<div class="custom-panel">
+  <div class="custom-panel-wrapper">
+    <div class="custom-panel-header">
+      <div class="custom-panel-header-title"
+           translate>
+        institution.edit.title
+      </div>
+      <button *ngIf="model.id && model.isActive"
+              mat-raised-button
+              color="primary"
+              (click)="deactivate()">
+        {{ 'institution.edit.deactivateBtn' | translate }}
+      </button>
+    </div>
+    <div class="custom-panel-body">
+      <form #authorCreationForm="ngForm">
+        <div class="row">
+          <mat-form-field class="col-sm-12">
+            <mat-label translate>institution.edit.name</mat-label>
+            <input matInput
+                   name="name"
+                   [(ngModel)]="model.name"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12">
+            <mat-label translate>institution.edit.nameEn</mat-label>
+            <input matInput
+                   name="nameEn"
+                   [(ngModel)]="model.nameEn"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12">
+            <mat-label translate>institution.edit.repositoryUrl</mat-label>
+            <input matInput
+                   name="repositoryUrl"
+                   [(ngModel)]="model.repositoryUrl"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+
+          <div class="form-group col-sm-12">
+            <mat-checkbox name="areCommonClassificationsVisible"
+                          color="primary"
+                          [(ngModel)]="model.areCommonClassificationsVisible"
+                          [disabled]="!isEditMode">
+              {{ 'institution.edit.areCommonClassificationsVisible' | translate }}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div *ngIf="model.isActive"
+             class="row">
+          <div class="col-sm-12">
+            <button *ngIf="!isEditMode"
+                    mat-raised-button
+                    color="primary"
+                    (click)="edit()">
+              {{ 'institution.edit.editBtn' | translate }}
+            </button>
+
+            <button *ngIf="isEditMode"
+                    mat-raised-button
+                    color="primary"
+                    (click)="save()">
+              {{ 'institution.edit.saveBtn' | translate }}
+            </button>
+
+            <button *ngIf="isEditMode"
+                    mat-raised-button
+                    style="margin-left: 1rem;"
+                    (click)="cancel()">
+              {{ 'institution.edit.cancelBtn' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

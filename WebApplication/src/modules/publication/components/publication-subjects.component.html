@@ -1,0 +1,72 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      <div>
+        {{ 'publication.subjectsPanel.title' | translate }}
+        <div class="panel-title-hint">
+          {{ 'publication.subjectsPanel.titleHint' | translate }}
+        </div>
+      </div>
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.mandatoryIfApplicable' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="disabled && !collection.length"
+       class="no-results-container"
+       translate>
+    publication.noResults
+  </div>
+
+  <form *ngIf="!disabled || (disabled && collection.length)"
+        #subjectsForm="ngForm">
+    <div *ngFor="let subject of collection | orderBy: 'viewOrder'; let i = index; let last = last;"
+         class="row">
+      <mat-form-field class="col-xs-12 col-sm-8">
+        <mat-label translate>publication.subjectsPanel.value</mat-label>
+        <input matInput
+               name="subject-{{i}}-value"
+               [(ngModel)]="subject.value"
+               [disabled]="disabled"
+               required>
+      </mat-form-field>
+
+      <div class="col-sm-12 col-md-2">
+        <ab-nomenclature-select name="subject-{{i}}-language"
+                                restUrl="/api/Language"
+                                placeholder="{{ 'publication.subjectsPanel.language' | translate }}"
+                                [(ngModel)]="subject.language"
+                                (ngModelChange)="subject.languageId = $event?.id"
+                                [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name}' : '{nameEn}'"
+                                [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                [disabled]="disabled"></ab-nomenclature-select>
+      </div>
+
+      <div *ngIf="!disabled"
+           class="col-sm-2">
+        <button mat-raised-button
+                color="warn"
+                (click)="remove(i)"
+                title="Премахни">
+          <i class="material-icons">delete</i>
+          {{ 'publication.subjectsPanel.removeBtn' | translate }}
+        </button>
+      </div>
+
+      <mat-divider *ngIf="!last"
+                   class="col-sm-12"
+                   style="margin: 15px 0;"></mat-divider>
+    </div>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.subjectsPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

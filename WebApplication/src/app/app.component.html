@@ -1,0 +1,13 @@
+<loading-indicator></loading-indicator>
+<system-messages *ngIf="isLoggedInUser"></system-messages>
+
+<header *ngIf="isLoggedInUser"
+        class="mat-elevation-z4">
+  <app-menu class="container flex-header"
+            [items]="menuItems"
+            [languages]="appLanguages"></app-menu>
+</header>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

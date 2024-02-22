@@ -1,0 +1,98 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      {{ 'publication.fundingReferencesPanel.title' | translate }}
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.mandatoryIfApplicable' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="disabled && !collection.length"
+       class="no-results-container"
+       translate>
+    publication.noResults
+  </div>
+
+  <form *ngIf="!disabled || (disabled && collection.length)"
+        #fundingReferencesForm="ngForm">
+    <div *ngFor="let fundingReference of collection | orderBy: 'viewOrder'; let i = index; let last = last;"
+         class="row">
+      <mat-form-field class="col-sm-10">
+        <mat-label translate>publication.fundingReferencesPanel.name</mat-label>
+        <input matInput
+               name="fundingReference-{{i}}-name"
+               [(ngModel)]="fundingReference.name"
+               [disabled]="disabled"
+               required>
+      </mat-form-field>
+
+      <div *ngIf="!disabled"
+           class="col-sm-2">
+        <button mat-raised-button
+                color="warn"
+                (click)="remove(i)"
+                title="Премахни">
+          <i class="material-icons">delete</i>
+          {{ 'publication.fundingReferencesPanel.removeBtn' | translate }}
+        </button>
+      </div>
+
+      <mat-form-field class="col-xs-12 col-sm-4">
+        <mat-label translate>publication.fundingReferencesPanel.identifier</mat-label>
+        <input matInput
+               name="fundingReference-{{i}}-identifier"
+               [(ngModel)]="fundingReference.identifier"
+               [disabled]="disabled">
+      </mat-form-field>
+
+      <div class="col-sm-12 col-md-6">
+        <ab-nomenclature-select name="fundingReference-{{i}}-organizationalIdentifierScheme"
+                                restUrl="/api/OrganizationalIdentifierScheme"
+                                placeholder="{{ 'publication.fundingReferencesPanel.identifierScheme' | translate }}"
+                                [(ngModel)]="fundingReference.scheme"
+                                (ngModelChange)="fundingReference.schemeId = $event?.id"
+                                [required]="fundingReference.identifier?.length > 0"
+                                [disabled]="disabled"></ab-nomenclature-select>
+      </div>
+
+      <mat-form-field class="col-xs-12 col-sm-4">
+        <mat-label translate>publication.fundingReferencesPanel.awardNumber</mat-label>
+        <input matInput
+               name="fundingReference-{{i}}-awardNumber"
+               [(ngModel)]="fundingReference.awardNumber"
+               [disabled]="disabled">
+      </mat-form-field>
+
+      <mat-form-field class="col-xs-12 col-sm-6">
+        <mat-label translate>publication.fundingReferencesPanel.awardTitle</mat-label>
+        <input matInput
+               name="fundingReference-{{i}}-awardTitle"
+               [(ngModel)]="fundingReference.awardTitle"
+               [disabled]="disabled">
+      </mat-form-field>
+
+      <mat-form-field class="col-xs-12 col-sm-10">
+        <mat-label translate>publication.fundingReferencesPanel.awardURI</mat-label>
+        <input matInput
+               name="fundingReference-{{i}}-awardURI"
+               [(ngModel)]="fundingReference.awardURI"
+               [disabled]="disabled">
+      </mat-form-field>
+
+      <mat-divider *ngIf="!last"
+                   class="col-sm-12"
+                   style="margin: 15px 0;"></mat-divider>
+    </div>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.fundingReferencesPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

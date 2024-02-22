@@ -1,0 +1,18 @@
+:host > nav {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+li {
+  display: inline-flex;
+  text-decoration: none;
+  padding: 0.5em;
+  height: 100%;
+}
+
+li > a,
+li > a:hover {
+  color: #ffffff;
+  text-decoration: none;;
+}

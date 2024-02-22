@@ -1,0 +1,42 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Размер (Size)
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let size of collection | orderBy: 'viewOrder'; let i = index; let last = last;"
+       class="row">
+
+    <mat-form-field class="col-sm-12 col-lg-10">
+      <input matInput
+             name="sizeValue-{{i}}"
+             [(ngModel)]="size.value"
+             placeholder="Размер - size (O, 0-n)">
+    </mat-form-field>
+
+    <div class="col-sm-2">
+      <button mat-raised-button
+              color="warn"
+              (click)="remove(i)"
+              title="Премахни">
+        <i class="material-icons">delete</i>
+        Премахни
+      </button>
+    </div>
+
+    <mat-divider *ngIf="!last"
+                 class="col-sm-12"
+                 style="margin: 15px 0;"></mat-divider>
+  </div>
+
+  <mat-action-row>
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      Добави размер
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

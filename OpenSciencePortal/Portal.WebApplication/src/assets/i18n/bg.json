@@ -1,0 +1,78 @@
+{
+  "menu.home": "Начало",
+  "menu.organizations": "Организации",
+  "menu.scientificAreas": "Научни области",
+  "menu.publish": "Публикуване",
+  "menu.initiative": "За инициативата",
+  "menu.login": "Вход",
+  "menu.brand.info": "Портал за отворена наука",
+  "texts.showMore": "Вижте повече",
+  "texts.showLess": "Скрий",
+  "texts.noContent": "няма",
+  "category.showMore": "Още...",
+  "category.showLess": "По-малко",
+  "nomenclatureSelect.searchPlaceholder": "Започнете да пишете, за да филтрирате резултатите...",
+  "search": {
+    "title": "Търсене на публикация",
+    "advanced": "Разширено търсене",
+    "quicksearchLink": "Опростено търсене",
+    "advancedSearchLink": "Разширено търсене",
+    "advanced.fieldTypeLabel": "Търсене по:",
+    "advanced.searchTerm.placeholder": "Ключови думи...",
+    "sidebar.filters": "Филтри",
+    "sidebar.clear": "Изчисти филтрите",
+    "searchBtn": "Търси",
+    "clearBtn": "Изчисти",
+    "quickSearch.placeholder": "Ключова дума...",
+    "resultCount": "Показване на {{count}} резултата от {{totalCount}} ({{timeElapsed}} сек.)",
+    "noResultsFound": "Няма намерени публикации"
+  },
+  "paginator": {
+    "page": "Страница",
+    "firstPage": "Първа",
+    "lastPage": "Последна"
+  },
+  "notFound": {
+    "oops": "",
+    "thisPage": "Тази страница",
+    "noLongerExists": "вече не съществува",
+    "orWas": "или е била",
+    "permanentlyMoved": "преместена за постоянно"
+  },
+  "publication": {
+    "backToSearch": "Обратно към търсене",
+    "noTitle": "Няма въведено заглавие",
+    "subjects": "Ключови думи",
+    "creators": "Автори",
+    "resourceType": "Тип на публикацията",
+    "publicationYear": "Година на публикуване",
+    "institution": "Организация",
+    "classifications": "Научни направления",
+    "fileForDownload": "Файл за сваляне",
+    "files": "Файлове"
+  },
+  "enums": {
+    "searchFieldType": {
+      "all": "Всички",
+      "title": "Заглавие",
+      "creator": "Автор",
+      "creatorIdentifier": "ORCID на автор",
+      "description": "Описание",
+      "subject": "Ключови думи",
+      "publisher": "Издател",
+      "awardTitle": "Име на проект",
+      "awardNumber": "Идентификатор на проект",
+      "resourceIdentifier": "Идентификатор на ресурс",
+      "content": "Съдържание",
+      "publicationYear": "Година на публикуване",
+      "publicationYears": "Година на публикуване",
+      "accessRight": "Права за достъп",
+      "funderName": "Финансираща организация",
+      "fundingStream": "Източник на финансиране",
+      "languages": "Език",
+      "institution": "Организация",
+      "resourceType": "Тип на ресурс",
+      "classifications": "Научна област"
+    }
+  }
+}

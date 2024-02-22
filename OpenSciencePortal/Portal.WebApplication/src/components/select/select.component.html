@@ -1,0 +1,40 @@
+<div ngbDropdown
+     #dropdown="ngbDropdown">
+  <div ngbDropdownToggle
+       class="select-dropdown-toggle d-flex justify-content-between">
+
+    <ng-container [ngTemplateOutlet]="selectedItemTemplate || defaultSelectedItemTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: value }">
+    </ng-container>
+
+    <span class="select-dropdown-indicator">
+      <fa-icon [icon]="faAngleDown"
+               [fixedWidth]="true"
+               [class.rotate-180]="isOpen"></fa-icon>
+    </span>
+  </div>
+
+  <div ngbDropdownMenu
+       #dropdownMenu
+       class="select-dropdown-menu"
+       (wheel)="limitScroll($event)">
+    <button *ngFor="let item of collection"
+            ngbDropdownItem
+            [class.selected]="value===item"
+            (click)="selectItem(item)">
+
+      <ng-container [ngTemplateOutlet]="dropdownItemTemplate || defaultDropdownItemTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: item }">
+      </ng-container>
+    </button>
+  </div>
+</div>
+
+<ng-template #defaultDropdownItemTemplate
+             let-item>
+  {{item}}
+</ng-template>
+<ng-template #defaultSelectedItemTemplate
+             let-value>
+  {{value}}
+</ng-template>

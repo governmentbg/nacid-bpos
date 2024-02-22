@@ -1,0 +1,128 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      {{ 'publication.creatorsPanel.title' | translate }}
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.mandatory' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form #creatorsForm="ngForm">
+    <ng-container *ngFor="let creator of collection | orderBy: 'viewOrder'; let i = index; let last = last;">
+      <div class="row">
+        <mat-form-field class="col-sm-12 col-lg-5">
+          <mat-label translate>publication.creatorsPanel.firstName</mat-label>
+          <input matInput
+                 name="creator-{{i}}-firstName"
+                 [(ngModel)]="creator.firstName"
+                 [disabled]="disabled"
+                 required>
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-12 col-lg-5">
+          <mat-label translate>publication.creatorsPanel.lastName</mat-label>
+          <input matInput
+                 name="creator-{{i}}-lastName"
+                 [(ngModel)]="creator.lastName"
+                 [disabled]="disabled"
+                 required>
+        </mat-form-field>
+
+        <div *ngIf="!disabled && collection.length > 1"
+             class="col-sm-12 col-md-2">
+          <button mat-raised-button
+                  color="warn"
+                  (click)="remove(i)">
+            <i class="material-icons">delete</i>
+            {{ 'publication.creatorsPanel.removeBtn' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <ng-container *ngFor="let identifier of creator.identifiers | orderBy: 'viewOrder'; let ci = index;">
+          <mat-form-field class="form-group-lg col-sm-12 col-lg-5">
+            <mat-label translate>publication.creatorsPanel.identifier</mat-label>
+            <input matInput
+                   name="creator-{{i}}-identifier-{{ci}}-value"
+                   [(ngModel)]="identifier.value"
+                   [disabled]="disabled"
+                   [required]="identifier.schemeId">
+            <mat-hint translate>publication.creatorsPanel.identifierHint</mat-hint>
+          </mat-form-field>
+
+          <div class="form-group-lg col-sm-12 col-lg-3">
+            <ab-nomenclature-select name="creator-{{i}}-identifier-{{ci}}-scheme"
+                                    restUrl="/api/NameIdentifierScheme"
+                                    placeholder=" {{ 'publication.creatorsPanel.nameIdentifierScheme' | translate }}"
+                                    hint="{{ 'publication.creatorsPanel.nameIdentifierSchemeHint' | translate  }}"
+                                    [(ngModel)]="identifier.scheme"
+                                    (ngModelChange)="identifier.schemeId = $event?.id"
+                                    [required]="identifier.value?.length > 0"
+                                    [disabled]="disabled"></ab-nomenclature-select>
+          </div>
+
+          <div *ngIf="!disabled"
+               class="col-sm-12 col-md-1">
+            <button mat-icon-button
+                    color="warn"
+                    (click)="removeIdentifier(creator, ci)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </ng-container>
+
+        <div *ngIf="!disabled"
+             class="form-group col-sm-12">
+          <button mat-raised-button
+                  (click)="addIdentifier(creator)">
+            <i class="material-icons">add</i>
+            {{ 'publication.creatorsPanel.addIdentifierBtn' | translate }}
+          </button>
+        </div>
+
+        <ng-container *ngFor="let affiliation of creator.affiliations | orderBy: 'viewOrder'; let ai = index;">
+          <mat-form-field class="col-sm-12 col-lg-8">
+            <mat-label translate>publication.creatorsPanel.affiliationInstitutionName</mat-label>
+            <input matInput
+                   name="creator-{{i}}-affiliation-{{ai}}-institutionName"
+                   [(ngModel)]="affiliation.institutionName"
+                   [disabled]="disabled">
+          </mat-form-field>
+
+          <div *ngIf="!disabled"
+               class="col-sm-12 col-md-1">
+            <button mat-icon-button
+                    color="warn"
+                    (click)="removeAffiliation(creator, ai)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </ng-container>
+
+        <div *ngIf="!disabled"
+             class="col-sm-12">
+          <button mat-raised-button
+                  (click)="addAffiliation(creator)">
+            <i class="material-icons">add</i>
+            {{ 'publication.creatorsPanel.addAffiliationBtn' | translate }}
+          </button>
+        </div>
+
+        <mat-divider *ngIf="!last"
+                     class="col-sm-12"
+                     style="margin: 15px 0;"></mat-divider>
+      </div>
+    </ng-container>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.creatorsPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+</mat-expansion-panel>

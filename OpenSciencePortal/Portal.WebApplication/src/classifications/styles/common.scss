@@ -1,0 +1,80 @@
+@import '../../variables';
+@import '../../mixins';
+
+.container {
+   padding: 0;
+}
+
+.root {
+  margin: 48px 0px;
+  padding: 16px;
+  border: 1px solid $pastel-blue;
+  border-radius: 20px;
+  background-color: lighten($color: $pastel-blue, $amount: 50%);
+
+  .headline {
+    margin-bottom: 48px;
+  }
+
+  .main-areas-container {
+    margin-top: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .main-area {
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    
+    .main-title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .secondary-areas-container {
+      margin-left: 8px;
+      padding: 8px 0px 0px 8px;
+    }
+  }
+
+  .secondary-area {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .secondary-title {
+      flex-grow: 1;
+      color: $black;
+    }
+  }
+
+  .main-title:hover, .secondary-title:hover {
+    text-decoration: underline;
+  }
+}
+
+@include media-breakpoint-down("md") {
+  .root {
+    margin:32px 32px;
+  }
+}
+
+@include media-breakpoint-down("xs") {
+  .root {
+    margin: 32px 0px;
+    border-color: transparent;
+    background-color: transparent;
+    
+    .main-area {
+      font-size: 16px;
+    }
+
+    .secondary-area {
+      font-size: 14px;
+    }
+  }
+}

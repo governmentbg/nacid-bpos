@@ -1,0 +1,191 @@
+@import "node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+@import "variables";
+
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @author Hugo Giraudel
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($foreground-color, white, 50%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+///   @include scrollbars(.5em, slategray);
+@mixin scrollbars(
+  $size, 
+  $foreground-color, 
+  $background-color: mix($foreground-color, white,  50%)
+) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+  }
+
+  &::-webkit-scrollbar-track {
+      background: $background-color;
+  }
+
+  // For Internet Explorer
+  & body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+@mixin formToggles(
+  $fontSize:16px, 
+  $lineHeight: 1.5rem, 
+  $border:2, 
+  $bg: #01C1B8, 
+  $fg: #FFFFFF, 
+  $disable: #CCCCCC
+) {
+  // strip the units (expecting a px value, but remove so we've just got an int)
+  $baseFont: ($fontSize) / ($fontSize * 0 + 1);
+  // ensure our base is a rem val
+  $base: ($lineHeight) / ($lineHeight * 0 + 1) * 1rem;
+  // get our borderwidth in rems
+  $borderWidth: (($border) / ($border * 0 + 1) / $baseFont) * 1rem;
+  .toggles {
+    label {
+      line-height: $base;
+      position: relative;
+      display: inline-block;
+      padding-left: $base;
+      width: 100%;
+      margin-bottom: 0;
+      &:before,
+      &:after {
+        box-sizing: border-box;
+        line-height: $base;
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: $base/4.1;
+        left: 0;
+        width: $base/2;
+        height: $base/2;
+        border-radius: 100%;
+      }
+      &:before {
+        width: ($base/2)+$borderWidth*2;
+        height: ($base/2)+$borderWidth*2;
+        margin: -$borderWidth;
+        transition: background .36s;
+      }
+      /* Radio's setup */
+      &:after {
+        border: $borderWidth solid $fg;
+        transform: scale(0);
+        transition: background .12s, transform .16s;
+      }
+      /* The radio button background */
+      &:before {
+        border: $borderWidth solid $bg;
+      }
+      /* Checkbox setup */
+      &.checkbox:before,
+      &.checkbox:after {
+        border-radius: 0;
+      }
+      /* the check box background */
+      &.checkbox:before {
+        width: ($base/2)+$borderWidth*2;
+        height: ($base/2)+$borderWidth*2;
+        border-radius: 0;
+      }
+      /* Label hover state */
+      &:hover {
+        color: $bg;
+      }
+      /* Create an alternative stlye for switches */
+      &.switch {
+        padding-left: $base * 1.5;
+        display: block;
+        &:before {
+          width: ($base)+$borderWidth*2;
+          height: ($base/2)+$borderWidth*2;
+          border: $borderWidth solid $disable;
+        }
+        &:After {
+          transform: scale(1);
+          background: $disable;
+        }
+        &.round:before {
+          border-radius: 40%/80%;
+        }
+        &.round:after {
+          border-radius: 100%;
+        }
+        &.material:before {
+          top: $base/4+$borderWidth*2;
+          width: ($base)+$borderWidth*2;
+          height: ($base/2)-$borderWidth*2;
+          border-radius: 20%/40%;
+          border: none;
+          background: lighten($disable, 14%);
+        }
+        &.material:after {
+          top: $base/4-$borderWidth;
+          left: -$borderWidth;
+          border: none;
+          border-radius: 100%;
+          width: $base/2+$borderWidth*2;
+          height: $base/2+$borderWidth*2;
+        }
+      }
+    }
+    /* Hide the input elements and use there psuedo elements */
+    input[type="radio"] {
+      display: none;
+      &:checked + label:after {
+        transform: scale(1);
+        background: $bg;
+      }
+    }
+    /* hide the input element */
+    input[type="checkbox"] {
+      display: none;
+      /* style active state psuedo element */
+      &:checked + label:after {
+        content: '\2713';
+        display: inline-block;
+        background: $bg;
+        color: #fff;
+        line-height: $base/2+$borderWidth;
+        font-size: $base/3;
+        text-align: center;
+        transform: scale(1);
+        border: none;
+      }
+    }
+    // switch active states
+    input[type="radio"],
+    input[type="checkbox"] {
+      /* Add additional adjustments for switch style */
+      &:checked + label.switch {
+        &:before {
+          border-color: $bg;
+        }
+        &.material:before {
+          background: lighten($primary, 4%);
+        }
+      }
+      &:checked + label.switch {
+        &:after {
+          // no 3d, to support ie9+
+          transform: translateX($base*0.5);
+          border: $borderWidth solid $fg;
+          content: '';
+        }
+        &.material:after {
+          background: $primary;
+          border: none;
+        }
+      }
+    }
+  }
+}

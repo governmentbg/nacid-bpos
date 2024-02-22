@@ -1,0 +1,92 @@
+<form #baseForm="ngForm">
+  <table class="mat-elevation-z4 table table-sm table-bordered table-striped"
+         style="margin-top: 1rem;">
+    <thead>
+      <tr>
+        <th style="width: 35%; font-weight: 500; font-size: 14px; vertical-align: middle;">Схема</th>
+        <th style="width: 35%; font-weight: 500; font-size: 14px; vertical-align: middle;">URI</th>
+        <th style="width: 16%; font-weight: 500; font-size: 14px; vertical-align: middle;">Стойност</th>
+        <th style="width: 7%; font-weight: 500; font-size: 14px; vertical-align: middle;">Активен</th>
+        <th style="width: 7%; font-weight: 500; font-size: 14px; vertical-align: middle;">
+          <button (click)="add()"
+                  mat-raised-button
+                  color="primary"
+                  title="Добави">
+            <mat-icon>add</mat-icon>
+            Добави
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of model | vieworder; let i = index;">
+        <td>
+          <span *ngIf="!item.isEditMode">{{ item.name }}</span>
+          <input *ngIf="item.isEditMode"
+                 type="text"
+                 class="form-control input-sm"
+                 name="name-{{ i }}"
+                 [(ngModel)]="item.name"
+                 required>
+        </td>
+        <td>
+          <span *ngIf="!item.isEditMode">{{ item.uri }}</span>
+          <input *ngIf="item.isEditMode"
+                 type="text"
+                 class="form-control input-sm"
+                 name="uri-{{ i }}"
+                 [(ngModel)]="item.uri"
+                 required>
+        </td>
+        <td>
+          <span *ngIf="!item.isEditMode">{{ item.alias }}</span>
+          <input *ngIf="item.isEditMode"
+                 type="text"
+                 class="form-control input-sm"
+                 name="alias-{{ i }}"
+                 [(ngModel)]="item.alias"
+                 required>
+        </td>
+        <td>
+          <mat-icon *ngIf="!item.isEditMode">{{ item.isActive ? 'check' : 'cancel' }}</mat-icon>
+          <input *ngIf="item.isEditMode"
+                 type="checkbox"
+                 name="active-{{ i }}"
+                 [(ngModel)]="item.isActive">
+        </td>
+        <td>
+          <button *ngIf="item.isEditMode"
+                  mat-icon-button
+                  color="primary"
+                  (click)="save(item, i)"
+                  [disabled]="!baseForm.form.valid"
+                  title="Запиши">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button *ngIf="item.isEditMode"
+                  mat-icon-button
+                  (click)="cancel(item, i)"
+                  title="Откажи">
+            <mat-icon>clear</mat-icon>
+          </button>
+
+          <button *ngIf="!item.isEditMode"
+                  mat-icon-button
+                  (click)="edit(item)"
+                  title="Редактирай">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button *ngIf="!item.isEditMode"
+                  mat-icon-button
+                  color="warn"
+                  (click)="delete(item.id, i)"
+                  title="Изтрий">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

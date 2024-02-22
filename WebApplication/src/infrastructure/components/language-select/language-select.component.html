@@ -1,0 +1,13 @@
+<div style="text-align: center; margin: 1em 0;">
+  <div class="btn-group btn-group-sm languages-container">
+    <button *ngFor="let language of languages"
+            class="btn btn-primary"
+            [class.inactive]="!language.isUsed"
+            style="font-weight: 600;"
+            type="button"
+            (click)="useLanguage(language.alias)">
+      <img [src]="language.imgSrc">
+      {{ language.label }}
+    </button>
+  </div>
+</div>

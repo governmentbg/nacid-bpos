@@ -1,0 +1,539 @@
+{
+  "app": {
+    "login": "Вход",
+    "menu": {
+      "search": "Търсене",
+      "classifications": "Класификации",
+      "publications": "Публикации",
+      "institutions": "Организации",
+      "nomenclatures": "Номенклатури",
+      "users": "Потребители"
+    },
+    "loading": "Моля, изчакайте...",
+    "successMessages": {
+      "userCreation": "Потребителят беше създаден успешно!"
+    },
+    "errorTexts": {
+      "classification_CannotEditClassification": "Класификацията не може да бъде променена!",
+      "classification_CannotDeleteClassification": "Класификацията не може да бъде изтрита!"
+    }
+  },
+  "user": {
+    "login": {
+      "title": "Вход в системата",
+      "username": "Потребителско име",
+      "password": "Парола",
+      "errors": {
+        "User_InvalidCredentials": "Невалидно потребителско име или парола"
+      },
+      "loginBtn": "Вход",
+      "forgotenPasswordLink": "Забравена парола"
+    },
+    "forgottenPassword": {
+      "title": "Забравена парола",
+      "mail": "Ел. поща",
+      "sendForgottenPasswordBtn": "Изпрати",
+      "backLink": "Назад",
+      "errors": {
+        "invalidEmail": "Невалиден адрес на ел. поща",
+        "required": "Полето е задължително",
+        "User_InvalidCredentials": "Няма потребител с посочената електронна поща",
+        "User_CannotRestoreUserPassword": "Невалиден потребител"
+      },
+      "successMsg": "Успешно е изпратен линк за възстановяване на паролата на посочената електронна поща"
+    },
+    "passwordRecovery": {
+      "title": "Нова парола",
+      "newPassword": "Въведете новата парола",
+      "newPasswordAgain": "Въведете новата парола отново",
+      "changeBtn": "Промени",
+      "backLink": "Назад",
+      "errors": {
+        "required": "Полето е задължително",
+        "passwordMismatch": "Паролите не съвпадат",
+        "invalidPasswordFormat": "Паролата не отговаря на изискванията да съдържа минимум 6 символа, малка, главна буква и цифра",
+        "User_PasswordRecoveryTokenAlreadyUsed": "Вече сте сменили паролата с този линк",
+        "User_PasswordRecoveryTokenExpired": "Линкът е с изтекъл срок",
+        "System_IncorrectParameters": "Линкът е невалиден"
+      },
+      "successMsg": "Успешно променихте паролата си"
+    },
+    "changePasswordBtn": "Смяна на парола",
+    "logoutBtn": "Изход",
+    "changePasswordModal": {
+      "title": "Смяна на парола",
+      "oldPassword": "Въведете старата парола",
+      "newPassword": "Въведете новата парола",
+      "newPasswordAgain": "Въведете новата парола отново",
+      "closeBtn": "Откажи",
+      "changeBtn": "Промени",
+      "successMessage": "Паролата Ви беше сменена успешно",
+      "errors": {
+        "required": "Полето е задължително",
+        "passwordMismatch": "Паролите не съвпадат",
+        "incorrectPassword": "Грешна парола",
+        "invalidPasswordFormat": "Паролата не отговаря на изискванията да съдържа минимум 6 символа, малка, главна буква и цифра"
+      }
+    },
+    "activation": {
+      "title": "Активиране на потребител",
+      "password": "Въведете парола",
+      "passwordAgain": "Въведете парола отново",
+      "errors": {
+        "mismatchingPasswords": "Паролите не съвпадат",
+        "tokenExpired": "Линкът е невалиден",
+        "tokenUsed": "Потребителят вече е бил активиран",
+        "required": "Полето е задължително",
+        "invalidPasswordFormat": "Паролата не отговаря на изискванията да съдържа минимум 6 символа, малка, главна буква и цифра"
+      },
+      "activateBtn": "Активирай",
+      "successMsg": "Успешно активирахте потребителския си профил",
+      "loginLink": "Към вход в системата"
+    },
+    "create": {
+      "title": "Създаване на потребител",
+      "username": "Потребителско име",
+      "fullname": "Име",
+      "email": "Ел. поща",
+      "role": "Роля",
+      "orcid": "ORCID",
+      "organization": "Към организация",
+      "addOrganizationBtn": "Добави организация",
+      "saveBtn": "Запази",
+      "cancelBtn": "Откажи",
+      "errors": {
+        "taken": "Има потребител с това потребителско име",
+        "required": "Полето е задължително",
+        "mailTaken": "Има потребител с тази ел. поща",
+        "invalidEmail": "Невалиден адрес на ел. поща"
+      }
+    },
+    "edit": {
+      "title": "Данни на потребител",
+      "deactivateBtn": "Деактивирай",
+      "username": "Потребителско име",
+      "fullname": "Име",
+      "role": "Роля",
+      "email": "Електронна поща",
+      "orcid": "ORCID",
+      "organization": "Към организация",
+      "deactivationConfirmation": {
+        "header": "Деактивиране на потребител",
+        "body": "Сигурни ли сте, че искате да деактивирате избрания потребител?",
+        "acceptText": "Деактивирай",
+        "declineText": "Не"
+      },
+      "editBtn": "Редактирай",
+      "saveBtn": "Запази",
+      "cancelBtn": "Откажи",
+      "sendActivationMailBtn": "Изпрати активационен мейл"
+    },
+    "search": {
+      "filterPanelTitle": "Филтър",
+      "username": "Потребителско име",
+      "name": "Име",
+      "email": "Ел. поща",
+      "role": "Роля",
+      "createDate": "Дата на създаване",
+      "updateDate": "Дата на последна промяна",
+      "isActive": "Активен",
+      "isLocked": "Заключен",
+      "searchBtn": "Търси",
+      "clearBtn": "Изчисти",
+      "addNewBtn": "Добави нов"
+    }
+  },
+  "classification": {
+    "base": {
+      "addClassificationBtn": "Нова класификация",
+      "successfullyAddedClassificationMsg": "Успешно добавихте нова класификация",
+      "successfullyUpdatedClassificationMsg": "Успешно променихте класификацията",
+      "successfullyRemovedClassificationMsg": "Успешно изтрихте класификация"
+    },
+    "creationModal": {
+      "title": "Създай нова класификация",
+      "parentClassification": "Към класификация",
+      "organization": "Към организация",
+      "name": "Име",
+      "isOpenAirePropagationEnabled": "Да се предоставя на OpenAIRE",
+      "isFromHarvesting": "Импортиране на данни",
+      "harvestUrl": "От URL",
+      "metadataFormat": "Формат на метаданни",
+      "defaultResourceType": "Тип по подразбиране",
+      "defaultResourceIdentifierType": "Тип идентификатор по подразбиране",
+      "defaultLicenseType": "Лиценз по подразбиране",
+      "defaultAccessRight": "Право за достъп по подразбиране",
+      "defaultLicenseStartDate": "Начална дата на лиценза по подразбиране",
+      "harvestSets": "Сетове за жънене",
+      "selectAllSets": "Избери всички",
+      "deselectAllSets": "Изчисти",
+      "createBtn": "Създай",
+      "editBtn": "Запиши",
+      "cancelBtn": "Откажи"
+    },
+    "viewer": {
+      "addSubClassificationBtn": "Добави нова",
+      "editSubClassificationBtn": "Редактирай",
+      "deleteSubClassificationBtn": "Изтрий",
+      "emptyOrganizationName": "Обща класификация"
+    },
+    "messages": {
+      "repositoryInvalidFailureMessage": "Невалиден OAI PMH адрес за жънене"
+    }
+  },
+  "institution": {
+    "edit": {
+      "title": "Редакция на организация",
+      "deactivateBtn": "Деактивирай",
+      "name": "Име",
+      "nameEn": "Име на английски",
+      "repositoryUrl": "URL на институционално хранилище",
+      "areCommonClassificationsVisible": "Общите класификации са видими",
+      "editBtn": "Редактирай",
+      "saveBtn": "Запази",
+      "cancelBtn": "Откажи"
+    },
+    "deactivationConfirmation": {
+      "header": "Деактивиране на организация",
+      "body": "Сигурни ли сте, че искате да деактивирате избраната организация?",
+      "acceptText": "Деактивирай",
+      "declineText": "Откажи"
+    },
+    "search": {
+      "filterPanelTitle": "Филтър",
+      "name": "Име",
+      "repositoryUrl": "URL на институционално хранилище",
+      "areCommonClassificationsVisible": "Вижда общите класификации",
+      "isActive": "Активен",
+      "searchBtn": "Търси",
+      "clearBtn": "Изчисти",
+      "addNewBtn": "Добави нова",
+      "loadMoreBtn": "Зареди още"
+    },
+    "messages": {
+      "modificationSuccessMessage": "Организацията беше променена успешно!",
+      "creationSuccessMessage": "Организацията беше създадена успешно!",
+      "deactivationSuccessMessage": "Избраната организация беше деактивирана успешно!"
+    }
+  },
+  "publication": {
+    "base": {
+      "editHeader": "Преглед на публикация",
+      "newHeader": "Нова публикация",
+      "saveBtn": "Запази",
+      "editBtn": "Редактирай",
+      "cancelBtn": "Откажи",
+      "markPendingApprovalBtn": "Изпрати за одобрение",
+      "denyBtn": "Отхвърли",
+      "publishBtn": "Публикувай",
+      "hideEmptyPanels": "Скрий празните секции",
+      "basicInformationStepTitle": "Основна информация (Basic information)",
+      "additionalInformationStepTitle": "Допълнителна информация (Additional information)",
+      "licenseStepTitle": "Лиценз (License condition)",
+      "attachedFilesStepTitle": "Прикачени файлове",
+      "publishStepTitle": "Публикуване",
+      "stepRequiredError": "Моля, попълнете всички задължителни полета",
+      "nextStepBtn": "Напред",
+      "backStepBtn": "Назад",
+      "backBtn": "Назад"
+    },
+    "messages": {
+      "successCreationMessage": "Публикацията беше успешно създадена!",
+      "successUpdateMessage": "Публикацията беше успешно променена!",
+      "failureCreationMessage": "Възникна грешка при създаването на публикацията! Моля, свържете се с екипа по поддръжка на системата!",
+      "successMarkPendingMessage": "Публикацията беше успешно изпратена за одобрение!",
+      "successDenyMessage": "Публикацията беше успешно отхвърлена!",
+      "successPublishMessage": "Публикацията беше успешно публикувана!"
+    },
+    "confirmationModal": {
+      "header": "Промяна на публикация",
+      "defaultBody": "Сигурни ли сте, че искате да запазите промените?",
+      "acceptText": "Запиши",
+      "declineText": "Откажи",
+      "draft": {
+        "body": "Сигурни ли сте, че искате да запазите публикацията като чернова?"
+      },
+      "pendingApproval": {
+        "body": "Сигурни ли сте, че искате да изпратите публикацията за одобрение?"
+      },
+      "published": {
+        "body": "Сигурни ли сте, че искате да публикувате публикацията?"
+      },
+      "notApproved": {
+        "body": "Сигурни ли сте, че искате да отхвърлите публикацията?"
+      }
+    },
+    "cancelConfirmationModal": {
+      "header": "Отказ от промяна на публикацията",
+      "body": "Сигурни ли сте, че искате да откажете направените промени?",
+      "acceptText": "Да",
+      "declineText": "Не"
+    },
+    "statuses": {
+      "draft": "Чернова",
+      "pendingApproval": "Очакващ одобрение",
+      "notApproved": "Неодобрен",
+      "deleted": "Изтрит",
+      "published": "Публикуван"
+    },
+    "search": {
+      "filterPanelTitle": "Филтър",
+      "filterTitle": "Заглавие",
+      "filterCreatorFirstName": "Име на автор",
+      "filterCreatorLastName": "Фамилия на автор",
+      "filterInstitution": "Към организация",
+      "filterStatus": "Статус",
+      "searchBtn": "Търси",
+      "clearBtn": "Изчисти",
+      "addNewBtn": "Добави нова публикация",
+      "titlesTh": "Заглавия",
+      "authorsTh": "Автори",
+      "statusTh": "Статус",
+      "modificationDateTh": "Последна промяна",
+      "loadMoreBtn": "Зареди още"
+    },
+    "noResults": "Няма въведена информация",
+    "cardinality": {
+      "mandatory": "задължително",
+      "mandatoryIfApplicable": "задължително, ако е приложимо",
+      "recommended": "препоръчително",
+      "optional": "по избор"
+    },
+    "resourceTypePanel": {
+      "title": "Тип публикация (Resource type)",
+      "resourceType": "Тип"
+    },
+    "titlesPanel": {
+      "title": "Заглавие (Title)",
+      "value": "Заглавие",
+      "removeBtn": "Премахни",
+      "titleType": "Тип",
+      "language": "Език",
+      "addBtn": "Добави заглавие"
+    },
+    "creatorsPanel": {
+      "title": "Автор (Creator)",
+      "firstName": "Име",
+      "lastName": "Фамилия",
+      "removeBtn": "Премахни",
+      "identifier": "Идентификатор",
+      "identifierHint": "Осигурява по-голяма видимост и по-сигурна връзка между автора и научната му дейност.",
+      "nameIdentifierScheme": "Тип идентификатор",
+      "nameIdentifierSchemeHint": "Напр. ORCID",
+      "addIdentifierBtn": "Добави идентификатор",
+      "affiliationInstitutionName": "Организация",
+      "addAffiliationBtn": "Добави организация",
+      "addBtn": "Добави автор"
+    },
+    "contributorsPanel": {
+      "title": "Участник (Contributor)",
+      "titleHint": "Определя се от ролята на лицето в процеса на създаване на публикацията.",
+      "nameTypes": {
+        "personal": "Лице",
+        "organizational": "Организация"
+      },
+      "removeBtn": "Премахни",
+      "contributorType": "Тип участник",
+      "personal": {
+        "firstName": "Име",
+        "lastName": "Фамилия",
+        "institutionAffiliationName": "Организация на участника",
+        "identifierScheme": "Тип идентификатор",
+        "identifierValue": "Идентификатор на участника"
+      },
+      "organizational": {
+        "name": "Организация",
+        "identifierScheme": "Тип идентификатор",
+        "identifierValue": "Идентификатор на организация"
+      },
+      "addIdentifierBtn": "Добави идентификатор",
+      "addBtn": "Добави участник"
+    },
+    "descriptionsPanel": {
+      "title": "Описание (Description)",
+      "titleHint": "Може да съдържа автореферат, откъс, съдържание, графика, описание в свободен текст.",
+      "value": "Въведете описанието на публикацията",
+      "removeBtn": "Премахни",
+      "language": "Език",
+      "addBtn": "Добави описание"
+    },
+    "languagesPanel": {
+      "title": "Език (Language)",
+      "titleHint": "Основен текст на публикацията.",
+      "value": "Език",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави език"
+    },
+    "resourceIdentifierPanel": {
+      "title": "Идентификатор на публикацията (Resource identifier)",
+      "titleHint": "Посочва се идентификатор на публикацията, ако тя вече има такъв. Ако няма, полето не се попълва, а идентификаторът се дава служебно, след одобряване на текста за публикуване в хранилището.",
+      "value": "Идентификатор",
+      "identifierType": "Тип идентификатор"
+    },
+    "publicationDatePanel": {
+      "title": "Дата на публикуване (Publication date)",
+      "titleHint": "Посочва се датата на първото публикуване, когато текстът вече е публикуван на друго място.",
+      "value": "Идентификатор",
+      "publishYear": "Година",
+      "publishMonth": "Месец",
+      "publishDay": "Ден",
+      "errors": {
+        "required": "Полето е задължително",
+        "invalidYear": "Невалидна година",
+        "invalidMonth": "Невалиден месец",
+        "invalidDay": "Невалиден ден"
+      }
+    },
+    "versionPanel": {
+      "title": "Версия (Resource version)",
+      "titleHint": "Посочва се статусът в процеса на публикуване в списание.",
+      "value": "Версия"
+    },
+    "subjectsPanel": {
+      "title": "Ключови думи (Subject)",
+      "titleHint": "Може да въведете в свободен текст ключови думи, които описват ресурса.",
+      "value": "Въведете ключови думи",
+      "language": "Език",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави ключова дума"
+    },
+    "fundingReferencesPanel": {
+      "title": "Източник на финансиране (Funding reference)",
+      "name": "Финансираща организация",
+      "removeBtn": "Премахни",
+      "identifier": "Идентификатор на организацията",
+      "identifierScheme": "Тип идентификатор",
+      "awardNumber": "Номер на проект",
+      "awardTitle": "Име на проект",
+      "awardURI": "URL",
+      "addBtn": "Добави източник"
+    },
+    "relatedIdentifiersPanel": {
+      "title": "Идентификатор на свързан ресурс (Related identifier)",
+      "resourceType": "Тип на свързания ресурс",
+      "resourceTypeHint": "Попълва се при наличие на връзка между публикацията и друг ресурс.",
+      "removeBtn": "Премахни",
+      "value": "Идентификатор",
+      "identifierType": "Тип идентификатор",
+      "relationType": "Тип на връзката",
+      "relationTypeHint": "Посочва се по какъв начин са свързани двата ресурса.",
+      "relatedMetadataScheme": "Схема на свързаните метаданни",
+      "relatedMetadataSchemeHint": " По избор. Попълва се, само ако в Тип на връзката е посочено HasMetadata / IsMetadataFor.",
+      "schemeURI": "URI",
+      "schemeURIHint": "По избор. Попълва се само при Тип на връзката HasMetadata / IsMetadataFor.",
+      "schemeType": "Тип схема",
+      "schemeTypeHint": "По избор. Попълва се само при тип на връзката HasMetadata / IsMetadataFor. Например XSD, DDT, Turtle.",
+      "addBtn": "Добави идентификатор"
+    },
+    "alternateIdentifiersPanel": {
+      "title": "Алтернативен идентификатор на ресурса (Alternate identifier)",
+      "titleHint": "Посочва се, когато ресурсът има назначен различен от основния идентификатор.",
+      "value": "Идентификатор",
+      "identifierType": "Тип идентификатор",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави идентификатор"
+    },
+    "sourcesPanel": {
+      "title": "Източник (Source)",
+      "titleHint": "Ресурс, от който е извлечен/произхожда настоящия. Попълва се предимно в случаи, когато публикацията е резултат от дигитализиране на хартиен оригинал.",
+      "value": "Източник",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави източник"
+    },
+    "publishersPanel": {
+      "title": "Издател (Publisher)",
+      "titleHint": "Пълното наименование организацията-издател, чрез която е осигурен достъп до публикацията. Да не се бърка с организацията, към която принадлежи автора.",
+      "name": "Издател",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави издател"
+    },
+    "coveragesPanel": {
+      "title": "Обхват (Coverage)",
+      "titleHint": "Покритие или обхват на публикацията, например период от време.",
+      "value": "Обхват",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави обхват"
+    },
+    "citationsPanel": {
+      "title": "Цитиране (Citation)",
+      "citationTitle": "Публикувано в (име на книга, журнал и т.н.)",
+      "citationVolume": "Том",
+      "citationIssue": "Брой",
+      "citationStartPage": "От страница",
+      "citationEndPage": "До страница",
+      "citationEdition": "Номер на изданието",
+      "citationConferencePlace": "Място на конференция",
+      "citationConferenceStartDate": "Начална дата",
+      "citationConferenceEndDate": "Крайна дата",
+      "errors": {
+        "invalidMinValue": "Невалидна стойност"
+      }
+    },
+    "audiencesPanel": {
+      "title": "Публика (Audience)",
+      "titleHint": " Конкретизирайте за каква група от хора е предназначен ресурсът.",
+      "audienceType": "Публика",
+      "removeBtn": "Премахни",
+      "addBtn": "Добави публика"
+    },
+    "accessRightsPanel": {
+      "title": "Права за достъп (Access Rights)",
+      "embargoPeriodStart": "Начална дата",
+      "embargoPeriodEnd": "Крайна дата"
+    },
+    "licenseTypePanel": {
+      "title": "Лиценз",
+      "licenseType": "Лиценз",
+      "otherLicenseCondition": "Лиценз",
+      "otherLicenseUrl": "URL",
+      "licenseStartDate": "Начална дата"
+    },
+    "filesPanel": {
+      "title": "Прикачени файлове",
+      "fileTh": "Файл",
+      "sizeTh": "Размер"
+    },
+    "publishPanel": {
+      "moderatorInstitution": "Към организация",
+      "saveDraft": "Запиши като чернова",
+      "savePendingApproval": "Предай за одобрение",
+      "savePublished": "Публикувай"
+    }
+  },
+  "search": {
+    "title": "Търсене",
+    "advanced": "Разширено търсене",
+    "advanced.fieldTypeLabel": "Търсене по:",
+    "advanced.searchTerm.placeholder": "Въведете стойност...",
+    "searchBtn": "Търсене",
+    "clearBtn": "Изчисти",
+    "quickSearch.label": "Търси",
+    "quickSearch.placeholder": "Търси в заглавия, автори, ключови думи, съдържание...",
+    "resultCount": "Показване на {{count}} резултата от {{totalCount}} ({{timeElapsed}} сек.)",
+    "noResultsFound": "Няма намерени публикации"
+  },
+  "enums": {
+    "searchFieldType": {
+      "all": "Всички",
+      "title": "Заглавие",
+      "creator": "Автор",
+      "creatorIdentifier": "creatorIdentifier",
+      "description": "Описание",
+      "subject": "Ключови думи",
+      "publisher": "publisher",
+      "awardTitle": "awardTitle",
+      "awardNumber": "awardNumber",
+      "resourceIdentifier": "resourceIdentifier",
+      "content": "Съдържание",
+      "publicationDate": "Дата на публикуване",
+      "publicationYear": "Година на публикуване",
+      "accessRight": "Права за достъп",
+      "funderName": "Финансиращи организации",
+      "fundingStream": "Финансиране",
+      "language": "Език",
+      "institution": "Научни организации",
+      "resourceType": "Тип на публикацията",
+      "classification": "Класификация"
+    }
+  }
+}

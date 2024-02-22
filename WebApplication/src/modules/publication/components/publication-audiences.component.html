@@ -1,0 +1,62 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      <div>
+        {{ 'publication.audiencesPanel.title' | translate }}
+        <div class="panel-title-hint">
+          {{ 'publication.audiencesPanel.titleHint' | translate }}
+        </div>
+      </div>
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.optional' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="disabled && !collection.length"
+       class="no-results-container"
+       translate>
+    publication.noResults
+  </div>
+
+  <form *ngIf="!disabled || (disabled && collection.length)"
+        #audiencesForm="ngForm">
+    <div *ngFor="let audience of collection | orderBy: 'viewOrder'; let i = index; let last = last;"
+         class="row">
+      <div class="col-sm-10">
+        <ab-nomenclature-select name="audience-{{i}}-type"
+                                restUrl="/api/AudienceType"
+                                placeholder="{{ 'publication.audiencesPanel.audienceType' | translate }}"
+                                [(ngModel)]="audience.type"
+                                (ngModelChange)="audience.typeId = $event?.id"
+                                [disabled]="disabled"
+                                required></ab-nomenclature-select>
+      </div>
+
+      <div *ngIf="!disabled"
+           class="col-sm-2">
+        <button mat-raised-button
+                color="warn"
+                (click)="remove(i)"
+                title="Премахни">
+          <i class="material-icons">delete</i>
+          {{ 'publication.audiencesPanel.removeBtn' | translate }}
+        </button>
+      </div>
+
+      <mat-divider *ngIf="!last"
+                   class="col-sm-12"
+                   style="margin: 15px 0;"></mat-divider>
+    </div>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.audiencesPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

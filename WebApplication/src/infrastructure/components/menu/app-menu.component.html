@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg">
+  <button class="navbar-toggler"
+          type="button"
+          style="color: #ffffff; border-color: #ffffff;"
+          [attr.aria-expanded]="!isCollapsed"
+          (click)="isCollapsed = !isCollapsed">
+    <i class="material-icons">menu</i>
+  </button>
+
+  <div class="collapse navbar-collapse"
+       [ngClass]="{'show': isCollapsed}">
+    <ul class="navbar-nav mr-auto">
+      <li *ngFor="let item of items | isActive"
+          (click)="navigateTo(item)"
+          class="nav-item header-item"
+          [ngClass]="{'selected': item.isSelected }">
+        <a class="nav-link">{{ item.name | translate }}</a>
+      </li>
+    </ul>
+
+    <div>
+      <language-select [languages]="languages"></language-select>
+    </div>
+
+    <current-user class="nav-item header-item"></current-user>
+  </div>
+</nav>

@@ -1,0 +1,15 @@
+<button *ngIf="showBackBtn"
+        mat-raised-button
+        matStepperPrevious
+        style="margin-right: 10px;">
+  <mat-icon>arrow_back</mat-icon>
+  {{ backBtnText }}
+</button>
+
+<button mat-raised-button
+        matStepperNext
+        class="btn-success"
+        [disabled]="disableNextBtn">
+  {{ nextBtnText }}
+  <mat-icon>arrow_forward</mat-icon>
+</button>

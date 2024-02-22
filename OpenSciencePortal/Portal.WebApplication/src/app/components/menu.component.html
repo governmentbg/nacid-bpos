@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-xl container">
+
+  <a class="navbar-brand"
+     [routerLink]="['/']">
+    <h3 class="brand-name">
+      <span class="text-primary"
+            style="margin-right: .15em;">Open</span>
+      <span class="text-secondary">Science</span>
+    </h3>
+    <h6 class="brand-info">{{ 'menu.brand.info' | translate }}</h6>
+  </a>
+
+  <button class="navbar-toggler text-primary"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navigation-collapsed-content"
+          aria-controls="navigation-collapsed-content"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+    <fa-icon [icon]="faBars"></fa-icon>
+  </button>
+
+  <div id="navigation-collapsed-content"
+       class="collapse navbar-collapse justify-content-end">
+
+
+    <a class="nav-item nav-link"
+       routerLink="/"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact: true}">
+      {{ 'menu.home' | translate }}
+    </a>
+    <a class="nav-item nav-link"
+       routerLink="/organizations"
+       routerLinkActive="active">
+      {{ 'menu.organizations' | translate }}
+    </a>
+    <a class="nav-item nav-link"
+       routerLink="/scientific-areas"
+       routerLinkActive="active">
+      {{ 'menu.scientificAreas' | translate }}
+    </a>
+    <a class="nav-item nav-link"
+       routerLink="/publish"
+       routerLinkActive="active">
+      {{ 'menu.publish' | translate }}
+    </a>
+    <a class="nav-item nav-link"
+       routerLink="/about"
+       routerLinkActive="active">
+      {{ 'menu.initiative' | translate }}
+    </a>
+    <a class="nav-item nav-link"
+       [href]="loginUrl"
+       target="_blank">
+      {{ 'menu.login' | translate }}
+    </a>
+
+    <a class="nav-item nav-link">
+      <ab-language-selector></ab-language-selector>
+    </a>
+  </div>
+</nav>

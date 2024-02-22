@@ -1,0 +1,22 @@
+<mat-icon [ngSwitch]="status"
+          title="{{ 'publication.statuses.' + publicationStatuses[status] | translate }}">
+  <ng-container *ngSwitchCase="publicationStatuses.draft">
+    note
+  </ng-container>
+
+  <ng-container *ngSwitchCase="publicationStatuses.pendingApproval">
+    visibility
+  </ng-container>
+
+  <ng-container *ngSwitchCase="publicationStatuses.published">
+    desktop_windows
+  </ng-container>
+
+  <ng-container *ngSwitchCase="publicationStatuses.notApproved">
+    visibility_off
+  </ng-container>
+
+  <ng-container *ngSwitchCase="publicationStatuses.deleted">
+    highlight_off
+  </ng-container>
+</mat-icon>

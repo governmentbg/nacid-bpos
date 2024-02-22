@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="root">
+
+    <div class="headline"
+         style="justify-content: center;">
+      <h4 class="section-title">{{organization.name}}</h4>
+    </div>
+
+    <div *ngFor="let classification of organization.children"
+         style="margin-bottom: 16px; margin-left: 32px;">
+      <ng-template [ngTemplateOutlet]="recursive"
+                   [ngTemplateOutletContext]="{ $implicit: classification }">
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template let-item
+             #recursive>
+  <span class="classification-name clickable"
+        (click)="clickClassification(item)">{{item.name}}</span>
+  <span *ngIf="item.children.length === 0"
+        style="margin-left: 8px;font-size: 12px;">({{item.count}})</span>
+  <fa-icon [icon]="faSearch"
+           *ngIf="item.children.length === 0"
+           (click)="selectClassification(item)"
+           class="search-icon"></fa-icon>
+  <div *ngFor="let child of item.children">
+    <div *ngIf="item.isOpen"
+         class="classification-root">
+      <ng-template [ngTemplateOutlet]="recursive"
+                   [ngTemplateOutletContext]="{ $implicit: child }">
+      </ng-template>
+    </div>
+  </div>
+</ng-template>

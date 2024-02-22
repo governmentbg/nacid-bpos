@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="root">
+
+    <div class="headline"
+         style="justify-content: center;">
+      <h4 class="section-title">{{ 'menu.scientificAreas' | translate }}</h4>
+    </div>
+
+    <div class="main-areas-container">
+      <div *ngFor="let mainArea of data"
+           class="main-area">
+
+        <div class="main-title-container">
+          <span class="text-primary main-title">
+            <span style="cursor: pointer;"
+                  (click)="selectArea(mainArea)">
+              {{mainArea.name}}
+            </span>
+            <span class="text-normal">({{mainArea.count}})</span>
+          </span>
+        </div>
+
+        <div class="secondary-areas-container">
+          <div *ngFor="let area of mainArea.children"
+               class="secondary-area">
+            <span class="secondary-title">
+              <span (click)="selectArea(area)"
+                    style="cursor: pointer;">{{area.name}}</span>
+            </span>
+            <span style="margin-left: 8px;">({{area.count}})</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

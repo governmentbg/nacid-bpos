@@ -1,0 +1,184 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      <div>
+        {{ 'publication.contributorsPanel.title' | translate }}
+        <div class="panel-title-hint">
+          {{ 'publication.contributorsPanel.titleHint' | translate }}
+        </div>
+      </div>
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.mandatoryIfApplicable' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="disabled && !collection.length"
+       class="no-results-container"
+       translate>
+    publication.noResults
+  </div>
+
+  <form *ngIf="!disabled || (disabled && collection.length)"
+        #contributorsForm="ngForm">
+    <ng-container *ngFor="let contributor of collection | orderBy: 'viewOrder'; let i = index; let last = last;">
+      <div *ngIf="!disabled"
+           class="row">
+        <div class="form-group col-sm-12 col-md-10">
+          <mat-radio-group color="primary"
+                           name="contributor-{{i}}-nameType"
+                           [(ngModel)]="contributor.nameType"
+                           (ngModelChange)="contributorChanged(contributor)">
+            <mat-radio-button [value]="nameTypes.personal"
+                              style="margin-right: 2rem;">
+              {{ 'publication.contributorsPanel.nameTypes.personal' | translate }}
+            </mat-radio-button>
+            <mat-radio-button [value]="nameTypes.organizational">
+              {{ 'publication.contributorsPanel.nameTypes.organizational' | translate }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="col-sm-12 col-md-2">
+          <button mat-raised-button
+                  color="warn"
+                  (click)="remove(i)"
+                  title="Премахни">
+            <i class="material-icons">delete</i>
+            {{ 'publication.contributorsPanel.removeBtn' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-5">
+          <ab-nomenclature-select name="contributor-{{i}}-type"
+                                  restUrl="/api/ContributorType"
+                                  placeholder="{{ 'publication.contributorsPanel.contributorType' | translate }}"
+                                  [(ngModel)]="contributor.type"
+                                  (ngModelChange)="contributor.typeId = $event?.id"
+                                  [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                  [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                  [disabled]="disabled">
+          </ab-nomenclature-select>
+        </div>
+      </div>
+
+      <ng-container *ngIf="contributor.nameType === nameTypes.personal">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-lg-5">
+            <mat-label translate>publication.contributorsPanel.personal.firstName</mat-label>
+            <input matInput
+                   name="contributor-{{i}}-firstName"
+                   [(ngModel)]="contributor.firstName"
+                   [disabled]="disabled"
+                   required>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12 col-lg-5">
+            <mat-label translate>publication.contributorsPanel.personal.lastName</mat-label>
+            <input matInput
+                   name="contributor-{{i}}-lastName"
+                   [(ngModel)]="contributor.lastName"
+                   [disabled]="disabled"
+                   required>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-lg-10">
+            <mat-label translate>publication.contributorsPanel.personal.institutionAffiliationName</mat-label>
+            <input matInput
+                   name="contributor-{{i}}-institutionAffiliationName"
+                   [(ngModel)]="contributor.institutionAffiliationName"
+                   [disabled]="disabled">
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="contributor.nameType === nameTypes.organizational">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-lg-10">
+            <mat-label translate>publication.contributorsPanel.organizational.name</mat-label>
+            <input matInput
+                   name="contributor-{{i}}-organizationalFirstName"
+                   [(ngModel)]="contributor.firstName"
+                   [disabled]="disabled"
+                   required>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <div class="row">
+        <ng-container *ngFor="let identifier of contributor.identifiers | orderBy: 'viewOrder'; let ci = index;">
+          <mat-form-field class="col-sm-12 col-lg-5">
+            <mat-label>
+              {{ (contributor.nameType === nameTypes.personal
+                ? 'publication.contributorsPanel.personal.identifierValue'
+                : 'publication.contributorsPanel.organizational.identifierValue') | translate
+                }}
+            </mat-label>
+            <input matInput
+                   name="contributor-{{i}}-identifier-{{ci}}-value"
+                   [(ngModel)]="identifier.value"
+                   [disabled]="disabled"
+                   [required]="identifier.schemeId || identifier.organizationalSchemeId">
+          </mat-form-field>
+
+          <div class="col-sm-12 col-lg-3">
+            <ab-nomenclature-select *ngIf="contributor.nameType === nameTypes.personal"
+                                    name="contributor-{{i}}-identifier-{{ci}}-nameIdentifierScheme"
+                                    restUrl="/api/NameIdentifierScheme"
+                                    placeholder="{{ 'publication.contributorsPanel.personal.identifierScheme' | translate }}"
+                                    [(ngModel)]="identifier.scheme"
+                                    (ngModelChange)="identifier.schemeId = $event?.id"
+                                    [required]="identifier.value?.length > 0"
+                                    [disabled]="disabled"></ab-nomenclature-select>
+
+            <ab-nomenclature-select *ngIf="contributor.nameType === nameTypes.organizational"
+                                    name="contributor-{{i}}-identifier-{{ci}}-organizationalIdentifierScheme"
+                                    restUrl="/api/OrganizationalIdentifierScheme"
+                                    placeholder="{{ 'publication.contributorsPanel.organizational.identifierScheme' | translate }}"
+                                    [(ngModel)]="identifier.organizationalScheme"
+                                    (ngModelChange)="identifier.organizationalSchemeId = $event?.id"
+                                    [required]="identifier.value?.length > 0"
+                                    [disabled]="disabled"> </ab-nomenclature-select>
+          </div>
+
+          <div *ngIf="!disabled"
+               class="col-sm-12 col-md-1">
+            <button mat-icon-button
+                    color="warn"
+                    (click)="removeIdentifier(contributor, ci)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </ng-container>
+
+        <div *ngIf="!disabled"
+             class="form-group col-sm-12">
+          <button mat-raised-button
+                  (click)="addIdentifier(contributor)">
+            <i class="material-icons">add</i>
+            {{ 'publication.contributorsPanel.addIdentifierBtn' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <mat-divider *ngIf="!last"
+                   class="col-sm-12"
+                   style="margin: 15px 0;"></mat-divider>
+
+    </ng-container>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.contributorsPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

@@ -1,0 +1,51 @@
+@import "../../variables";
+@import "../../mixins";
+
+$drawer-widths: (
+  xs: 80%,
+  sm: 320px,
+  md: 320px,
+  lg: 320px,
+  xl: 450px
+);
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.507);
+  opacity: .8;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}
+
+.drawer-root {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: lighten($color: $pastel-blue, $amount: 50%);
+  padding: 16px;
+  transition: left .2s ease-out;
+  overflow-y: auto;
+  @include scrollbars(.5em, lighten($normal, 25%), $white);
+
+  &.open {
+    left: 0;
+  }
+}
+
+@each $breakpoint, $width in $drawer-widths {
+  @include media-breakpoint-up($breakpoint) {
+    .drawer-root {
+      left: -$width;
+      width: $width;
+    }
+  }
+}

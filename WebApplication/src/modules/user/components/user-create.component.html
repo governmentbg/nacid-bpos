@@ -1,0 +1,121 @@
+<div class="custom-panel">
+  <div class="custom-panel-wrapper">
+    <div class="custom-panel-header">
+      <div class="custom-panel-header-title"
+           translate>
+        user.create.title
+      </div>
+    </div>
+    <div class="custom-panel-body">
+      <form #userCreationForm="ngForm">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.create.fullname</mat-label>
+            <input matInput
+                   name="name"
+                   #fullname="ngModel"
+                   [(ngModel)]="model.fullname"
+                   required>
+            <mat-error *ngIf="fullname.hasError('required')">
+              {{ 'user.create.errors.required' | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.create.email</mat-label>
+            <input matInput
+                   name="mail"
+                   type="email"
+                   #mail="ngModel"
+                   [(ngModel)]="model.email"
+                   emailValidation
+                   [acceptNull]="true"
+                   required>
+            <mat-error *ngFor="let error of mail.errors | keyvalue">
+              {{ 'user.create.errors.' + error.key | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="form-group col-sm-12 col-lg-4 offset-lg-4">
+            <label translate>user.create.role</label>
+            <mat-radio-group name="role"
+                             color="primary"
+                             [ngModel]="selectedRole"
+                             (ngModelChange)="roleChanged($event)">
+              <mat-radio-button *ngFor="let role of rolesObservable | async"
+                                [value]="role"
+                                style="display: block;">
+                <!-- TODO: Translate roles -->
+                {{ role?.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div *ngIf="selectedRole && selectedRole?.alias === userRoleAliases.SCIENTIST"
+             class="row">
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.create.orcid</mat-label>
+            <input matInput
+                   name="orcid"
+                   [(ngModel)]="model.orcid">
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="selectedRole && selectedRole?.alias !== userRoleAliases.ADMINISTRATOR"
+             class="row">
+          <div *ngFor="let institution of selectedInstitutions; let i = index;"
+               class="col-sm-12 col-lg-4 offset-lg-4">
+            <div class="row">
+              <div class="col-sm-{{ selectedInstitutions.length === 1 ? '12' : '10' }}">
+                <ab-nomenclature-select name="institution"
+                                        #institutionSelect="ngModel"
+                                        restUrl="/api/Institution/Select"
+                                        placeholder="{{ 'user.create.organization' | translate }}"
+                                        [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                        [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                        [(ngModel)]="selectedInstitutions[i]"
+                                        required></ab-nomenclature-select>
+              </div>
+
+              <div *ngIf="selectedRole?.alias === userRoleAliases.SCIENTIST && selectedInstitutions.length > 1"
+                   class="col-sm-2">
+                <button mat-icon-button
+                        color="warn"
+                        (click)="removeInstitution(i)">
+                  <i class="material-icons">delete</i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="selectedRole?.alias === userRoleAliases.SCIENTIST"
+               class="form-group col-sm-12 offset-sm-4">
+            <button mat-raised-button
+                    (click)="addInstitution()">
+              <i class="material-icons">add</i>
+              {{ 'user.create.addOrganizationBtn' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 offset-sm-4">
+            <button mat-raised-button
+                    color="primary"
+                    (click)="create()"
+                    [disabled]="!userCreationForm.form.valid">
+              {{ 'user.create.saveBtn' | translate }}
+            </button>
+
+            <button mat-raised-button
+                    style="margin-left: 1rem;"
+                    (click)="cancel()">
+              {{ 'user.create.cancelBtn' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

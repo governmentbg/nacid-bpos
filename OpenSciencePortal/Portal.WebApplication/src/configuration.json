@@ -1,0 +1,7 @@
+{
+  "urls": {
+    "internalAppUrl": "http://192.168.0.38:11222"
+  },
+  "defaultUrl": "restUrl",
+  "restUrlFromAppOrigin": true
+}

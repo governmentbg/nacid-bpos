@@ -1,0 +1,15 @@
+<div class="root ">
+  <p *ngIf="!isCollapsed">
+    {{text.slice(0, 600) + '...'}}
+
+    <span class="collapse-control"
+          (click)="isCollapsed = !isCollapsed">{{ 'texts.showMore' | translate }}</span>
+  </p>
+
+  <p *ngIf="isCollapsed">
+    {{text}}
+    <span class="collapse-control d-block"
+          (click)="isCollapsed = !isCollapsed">{{ 'texts.showLess' | translate }}
+    </span>
+  </p>
+</div>

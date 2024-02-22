@@ -1,0 +1,33 @@
+<div class="d-md-flex align-items-center  pages-container">
+
+  <div class="d-flex justify-content-center align-items-center">
+    <span>
+      {{'paginator.page' | translate}} ({{this.page + 1}}/{{this.numberOfPages}})
+    </span>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center">
+
+    <!-- First page -->
+    <div *ngIf="offset > 0">
+      <span class="ab-page-link"
+            (click)="changePage(0)">{{ 'paginator.firstPage' | translate}}</span>
+      <span class="dots"> ... </span>
+    </div>
+
+    <!-- Pages -->
+    <div *ngFor="let pageOption of pages;let i=index"
+         class="ab-page"
+         [class.active]="pageOption == page"
+         (click)="changePage(pageOption)">
+      {{pageOption + 1}}
+    </div>
+
+    <!-- Last page -->
+    <div *ngIf="page + offset <= numberOfPages">
+      <span class="dots"> ... </span>
+      <span class="ab-page-link"
+            (click)="changePage(numberOfPages - 1)">{{ 'paginator.lastPage' | translate }}</span>
+    </div>
+  </div>
+</div>

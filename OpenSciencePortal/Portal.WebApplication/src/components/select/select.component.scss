@@ -1,0 +1,51 @@
+@import '../../variables';
+@import '../../mixins';
+
+.select-dropdown-toggle {
+  width: 100%;
+  border: $input-border-size solid $gray;
+  border-radius: 1px;
+  background: $white;
+  padding: 11px 13px;
+  cursor: pointer;
+
+  .select-dropdown-indicator {
+    border-left: 1px solid $gray;
+    padding-left: 11px;
+
+    fa-icon {
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: transform .2s ease-in-out;
+      font-size: 1.1;
+      color: $primary;
+
+      &.rotate-180 {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.select-dropdown-menu {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: scroll;
+  @include scrollbars(.5em, lighten($normal, 25%), $white);
+  
+  & [ngbDropdownItem] {
+    background-color: $white;
+    color: $normal;
+    transition: all .1s ease-in;
+
+    &.selected {
+      background-color: $pastel-blue;
+      color: $white;
+    }
+
+    &:hover {
+      background-color: $pastel-blue;
+      color: $white;
+    } 
+  }
+}

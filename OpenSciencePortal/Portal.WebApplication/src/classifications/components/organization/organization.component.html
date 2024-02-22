@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="root">
+
+    <div class="headline"
+         style="justify-content: center;">
+      <h4 class="section-title">{{ 'menu.organizations' | translate }}</h4>
+    </div>
+
+    <div class="main-areas-container">
+      <div *ngFor="let organization of data"
+           class="main-area">
+
+        <div class="main-title-container">
+          <span class="text-primary main-title">
+            <a [routerLink]="[organization.id]">
+              {{organization.name}}
+            </a>
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

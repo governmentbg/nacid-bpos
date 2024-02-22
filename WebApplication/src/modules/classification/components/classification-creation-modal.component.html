@@ -1,0 +1,84 @@
+<h2 mat-dialog-title
+    translate>
+  classification.creationModal.title
+</h2>
+
+<mat-dialog-content>
+  <form #classificationCreationForm="ngForm">
+    <div class="row">
+      <mat-form-field *ngIf="parentClassification"
+                      class="col-sm-12">
+        <mat-label translate>classification.creationModal.parentClassification</mat-label>
+        <input matInput
+               name="parentClassification"
+               [ngModel]="parentClassification.name"
+               [disabled]="true">
+      </mat-form-field>
+
+      <div *ngIf="!parentClassification"
+           class="col-sm-12">
+        <ab-nomenclature-select name="institution"
+                                placeholder="{{ 'classification.creationModal.organization' | translate }}"
+                                restUrl="/api/Institution/Select"
+                                [(ngModel)]="classification.organization"
+                                (ngModelChange)="classification.organizationId = $event?.id"
+                                [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                [required]="classification.isReadonly"
+                                [disabled]="classification.id"></ab-nomenclature-select>
+      </div>
+
+      <mat-form-field *ngIf="parentClassification"
+                      class="col-sm-12">
+        <mat-label translate>classification.creationModal.organization</mat-label>
+        <input matInput
+               name="parentClassificationInstitution"
+               [ngModel]="parentClassification.organizationName"
+               [disabled]="true">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-12">
+        <mat-label translate>classification.creationModal.name</mat-label>
+        <input matInput
+               name="classificationName"
+               [(ngModel)]="classification.name"
+               required>
+      </mat-form-field>
+
+      <div class="col-sm-12">
+        <mat-checkbox name="isOpenAirePropagationEnabled"
+                      color="primary"
+                      [(ngModel)]="classification.isOpenAirePropagationEnabled">
+          {{ 'classification.creationModal.isOpenAirePropagationEnabled' | translate }}
+        </mat-checkbox>
+      </div>
+
+      <mat-slide-toggle class="form-group col-sm-12"
+                        color="primary"
+                        [checked]="classification.isReadonly"
+                        (change)="isFromHarvestingChanged($event)">
+        {{ 'classification.creationModal.isFromHarvesting' | translate }}
+      </mat-slide-toggle>
+    </div>
+  </form>
+
+  <classification-harvesting-data *ngIf="classification.isReadonly"
+                                  [classification]="classification"
+                                  [isNew]="isNew"
+                                  (selectedSetsChange)="classification.sets = $event"
+                                  (isValid)="isValidClassificationHarvestingData = $event">
+  </classification-harvesting-data>
+
+</mat-dialog-content>
+<mat-dialog-actions style="justify-content: flex-end;">
+  <button mat-raised-button
+          color="primary"
+          [mat-dialog-close]="classification"
+          [disabled]="!classificationCreationForm.valid || !isValidClassificationHarvestingData">
+    {{ (isNew ? 'classification.creationModal.createBtn' : 'classification.creationModal.editBtn') | translate }}
+  </button>
+  <button mat-raised-button
+          mat-dialog-close>
+    {{ 'classification.creationModal.cancelBtn' | translate }}
+  </button>
+</mat-dialog-actions>

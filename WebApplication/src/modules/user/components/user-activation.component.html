@@ -1,0 +1,73 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2 translate>user.activation.title</h2>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form *ngIf="!isSuccess"
+          #activationForm="ngForm"
+          class="login-form">
+      <div class="row">
+        <mat-form-field class="col-sm-12">
+          <mat-label translate>user.activation.password</mat-label>
+          <input matInput
+                 name="password"
+                 #password="ngModel"
+                 type="password"
+                 [(ngModel)]="model.password"
+                 [passwordValidation]="passwordRegex"
+                 required />
+          <mat-error *ngFor="let error of password.errors | keyvalue">
+            {{ 'user.activation.errors.' + error.key | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-12">
+          <mat-label translate>user.activation.passwordAgain</mat-label>
+          <input matInput
+                 name="passwordAgain"
+                 type="password"
+                 [(ngModel)]="passwordAgain"
+                 required />
+        </mat-form-field>
+      </div>
+
+      <em *ngIf="errors.hasMismatchingPasswords"
+          class="error">
+        {{ 'user.activation.errors.mismatchingPasswords' | translate }}
+      </em>
+
+      <em *ngIf="errors.isTokenExpired"
+          class="error">
+        {{ 'user.activation.errors.tokenExpired' | translate }}
+      </em>
+
+      <em *ngIf="errors.isTokenUsed"
+          class="error">
+        {{ 'user.activation.errors.tokenUsed' | translate }}
+      </em>
+
+      <button mat-raised-button
+              color="primary"
+              (click)="activate()"
+              [disabled]="!activationForm.form.valid">
+        {{ 'user.activation.activateBtn' | translate }}
+      </button>
+    </form>
+
+    <div *ngIf="isSuccess">
+      <em class="success">
+        {{ 'user.activation.successMsg' | translate }}
+      </em>
+    </div>
+
+    <div style="text-align: center; padding: 1em; padding-bottom: 0;">
+      <a [routerLink]="['/login']">
+        {{ 'user.activation.loginLink' | translate }}
+      </a>
+    </div>
+
+  </mat-card-content>
+</mat-card>

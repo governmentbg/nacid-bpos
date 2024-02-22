@@ -1,0 +1,29 @@
+@import '../../../variables';
+
+.container {
+   padding: 0;
+}
+
+.root {
+  margin: 48px 0px;
+  padding: 16px;
+
+  .headline {
+    margin-bottom: 48px;
+  }
+
+  .property-name {
+    font-family: 'Roboto Slab', serif;
+    color: $primary;
+    font-size: 14px;
+    margin-right: 8px;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .child-root {
+    padding: 0px  0px 0px 20px;
+  }
+}

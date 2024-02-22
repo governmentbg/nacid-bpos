@@ -1,0 +1,29 @@
+<!-- <button class="btn btn-primary"
+        (click)="isOpen = !isOpen">
+  open drawer
+</button> -->
+<span (click)="isOpen = !isOpen">
+  <ng-content select="[opener]"></ng-content>
+</span>
+
+<div class="backdrop"
+     [class.open]="isOpen"
+     (click)="isOpen = !isOpen"
+     (wheel)="preventScroll($event)">
+
+</div>
+
+<div #drawer
+     class="drawer-root"
+     [class.open]="isOpen"
+     (wheel)="limitScroll($event)">
+
+  <div class="d-flex justify-content-end"
+       style="margin: 16px 0px">
+    <fa-icon [icon]="faTimes"
+             style="cursor: pointer;"
+             (click)="isOpen = !isOpen"></fa-icon>
+  </div>
+
+  <ng-content></ng-content>
+</div>

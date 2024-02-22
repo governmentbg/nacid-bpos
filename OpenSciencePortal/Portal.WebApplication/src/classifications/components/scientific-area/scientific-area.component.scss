@@ -1,0 +1,29 @@
+@import '../../../variables';
+@import '../../../mixins';
+
+.root {
+  .main-areas-container {
+    justify-content: space-evenly;
+  }
+
+  .main-area {
+    width: 30%;
+    margin-bottom: 32px;
+  }
+}
+
+@include media-breakpoint-down("md"){
+  .root {
+    .main-area {
+      width: 40%;
+    }
+  }
+}
+
+@include media-breakpoint-down("sm"){
+  .root {
+    .main-area {
+      width: 90%;
+    }
+  }
+}

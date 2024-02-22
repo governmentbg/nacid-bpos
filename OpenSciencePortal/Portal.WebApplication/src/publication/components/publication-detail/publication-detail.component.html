@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="root">
+
+    <div class="headline"
+         style="justify-content: center;">
+      <h4 class="section-title">Детайли за публикация</h4>
+    </div>
+
+    <div style="margin-left: 48px;">
+      <ng-template *ngFor="let propertyDescription of processedPublication"
+                   [ngTemplateOutlet]="property"
+                   [ngTemplateOutletContext]="{ $implicit: propertyDescription }"></ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #property
+             let-item>
+  <div [ngSwitch]="item.__propertyType">
+
+    <div *ngSwitchCase="PropertyType.plain">
+      <span class="property-name">{{item.name}}:</span>
+      <span>{{item.value}}</span>
+    </div>
+
+    <div *ngSwitchCase="PropertyType.object">
+      <span class="property-name"
+            (click)="item.isOpen = !item.isOpen">{{item.name}}</span>
+      <div *ngIf="item.isOpen"
+           class="child-root">
+        <ng-template *ngFor="let propertyDescription of item.value"
+                     [ngTemplateOutlet]="property"
+                     [ngTemplateOutletContext]="{ $implicit: propertyDescription }"></ng-template>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="PropertyType.array">
+      <div *ngFor="let arrayItem of item.value;let i=index">
+        <span class="property-name"
+              (click)="arrayItem.isOpen = !arrayItem.isOpen">{{item.name}}[{{i+1}}]</span>
+        <div *ngIf="arrayItem.isOpen"
+             class="child-root">
+          <ng-template *ngFor="let propertyDescription of arrayItem"
+                       [ngTemplateOutlet]="property"
+                       [ngTemplateOutletContext]="{ $implicit: propertyDescription }"></ng-template>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-template>

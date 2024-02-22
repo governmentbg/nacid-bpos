@@ -1,0 +1,56 @@
+<mat-form-field style="width: 100%;">
+  <mat-label>{{ placeholder }}</mat-label>
+  <input matInput
+         class="input-overflow"
+         [ngModel]="getTemplate(selectedModel)"
+         [disabled]="disabled || selectOpened"
+         [required]="required"
+         [title]="getTemplate(selectedModel)"
+         readonly>
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+
+  <ng-container *ngIf="!selectedModel && !disabled">
+    <mat-icon *ngIf="!selectOpened"
+              class="input-icon">
+      keyboard_arrow_down
+    </mat-icon>
+    <mat-icon *ngIf="selectOpened"
+              class="input-icon">
+      keyboard_arrow_up
+    </mat-icon>
+  </ng-container>
+
+  <mat-icon *ngIf="allowClear && selectedModel && !disabled"
+            class="input-icon"
+            (click)="clearSelection($event)">
+    clear
+  </mat-icon>
+
+  <div *ngIf="selectOpened"
+       class="popup-container">
+    <input class="form-control input-sm"
+           [(ngModel)]="textFilter"
+           (ngModelChange)="textFilterChange($event)" />
+    <mat-icon class="input-icon">
+      search
+    </mat-icon>
+    <div #scrollDiv
+         class="results-container"
+         (scroll)="onScroll()"
+         stopPropagation>
+      <div *ngFor="let item of options"
+           class="options-item"
+           (click)="selectOption(item)">
+        <span [innerHtml]="item | nomenclatureTemplatePipe: textTemplate"></span>
+      </div>
+      <div *ngIf="!options.length && !isLoading"
+           style="padding: 10px;">
+        Няма намерени резултати
+      </div>
+      <div *ngIf="isLoading"
+           style="padding: 10px;">
+        Зареждане на резултатите...
+      </div>
+    </div>
+  </div>
+</mat-form-field>

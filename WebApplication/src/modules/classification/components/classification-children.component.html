@@ -1,0 +1,58 @@
+<div *ngFor="let child of children | orderBy: 'name';"
+     style="margin-left: 1.5rem;">
+  <div>
+    <i class="material-icons">
+      {{ child.isExpanded ? 'expand_more' : 'chevron_right' }}
+    </i>
+    <span (click)="collapseChildren(child)"
+          style="cursor: pointer;">
+      {{ child.name }}
+    </span>
+
+    <button *ngIf="child.isExpanded"
+            mat-icon-button
+            color="primary"
+            matTooltip="Добави подкласификация"
+            (click)="addClassification(child, $event)">
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+
+    <button *ngIf="child.isExpanded"
+            mat-icon-button
+            color="primary"
+            matTooltip="Редактирай подкласификация"
+            (click)="editClassification(child.id, children)">
+      <i class="material-icons">
+        edit
+      </i>
+    </button>
+
+    <button *ngIf="child.isExpanded && !child.children?.length && !child.publications?.length"
+            mat-icon-button
+            matTooltip="Изтрий подкласификация"
+            (click)="deleteClassification(child.id, children)">
+      <i class="material-icons">
+        delete
+      </i>
+    </button>
+
+    <button *ngIf="child.isExpanded"
+            mat-icon-button
+            color="primary"
+            matTooltip="Добави публикация"
+            (click)="addPublication(child.id, $event)">
+      <i class="material-icons">
+        find_in_page
+      </i>
+    </button>
+
+    <mat-progress-bar *ngIf="child.isLoading"
+                      mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <classification-children *ngIf="child.isExpanded && !child.isLoading"
+                           [children]="child.children"
+                           [level]="level + 1"></classification-children>
+</div>

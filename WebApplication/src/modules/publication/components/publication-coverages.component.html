@@ -1,0 +1,62 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      <div>
+        {{ 'publication.coveragesPanel.title' | translate }}
+        <div class="panel-title-hint">
+          {{ 'publication.coveragesPanel.titleHint' | translate }}
+        </div>
+      </div>
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.recommended' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="disabled && !collection.length"
+       class="no-results-container"
+       translate>
+    publication.noResults
+  </div>
+
+  <form *ngIf="!disabled || (disabled && collection.length)"
+        #coveragesForm="ngForm">
+    <div *ngFor="let coverage of collection | orderBy: 'viewOrder'; let i = index; let last = last;"
+         class="row">
+
+      <mat-form-field class="col-sm-10">
+        <mat-label translate>publication.coveragesPanel.value</mat-label>
+        <input matInput
+               name="coverage-{{i}}-value"
+               [(ngModel)]="coverage.value"
+               [disabled]="disabled"
+               required>
+      </mat-form-field>
+
+      <div *ngIf="!disabled"
+           class="col-sm-2">
+        <button mat-raised-button
+                color="warn"
+                (click)="remove(i)"
+                title="Премахни">
+          <i class="material-icons">delete</i>
+          {{ 'publication.coveragesPanel.removeBtn' | translate }}
+        </button>
+      </div>
+
+      <mat-divider *ngIf="!last"
+                   class="col-sm-12"
+                   style="margin: 15px 0;"></mat-divider>
+    </div>
+  </form>
+
+  <mat-action-row *ngIf="!disabled">
+    <button mat-raised-button
+            color="primary"
+            (click)="add()">
+      <i class="material-icons">add</i>
+      {{ 'publication.coveragesPanel.addBtn' | translate }}
+    </button>
+  </mat-action-row>
+
+</mat-expansion-panel>

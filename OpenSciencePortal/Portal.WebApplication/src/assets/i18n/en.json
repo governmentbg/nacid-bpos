@@ -1,0 +1,77 @@
+{
+  "menu.home": "Home",
+  "menu.organizations": "Organizations",
+  "menu.scientificAreas": "Scientific fields",
+  "menu.publish": "Publish",
+  "menu.initiative": "About",
+  "menu.login": "Login",
+  "menu.brand.info": "Portal for open science",
+  "texts.showMore": "See more",
+  "texts.showLess": "Hide",
+  "texts.noContent": "none",
+  "category.showMore": "More...",
+  "category.showLess": "Less",
+  "nomenclatureSelect.searchPlaceholder": "Start typing to filter the results...",
+  "search": {
+    "title": "Search in publications",
+    "advanced": "Advanced search",
+    "quicksearchLink": "Quick search",
+    "advancedSearchLink": "Advanced search",
+    "advanced.fieldTypeLabel": "Search for:",
+    "advanced.searchTerm.placeholder": "Keywords...",
+    "sidebar.filters": "Filters",
+    "sidebar.clear": "Clear filters",
+    "searchBtn": "Search",
+    "clearBtn": "Clear",
+    "quickSearch.placeholder": "Keywords...",
+    "resultCount": "Showing {{count}} results from {{totalCount}} ({{timeElapsed}} sec.)",
+    "noResultsFound": "No publications found"
+  },
+  "paginator": {
+    "page": "Page",
+    "firstPage": "First",
+    "lastPage": "Last"
+  },
+  "notFound": {
+    "oops": "Opps!",
+    "thisPage": "this page",
+    "noLongerExists": "no longer exists",
+    "orWas": ",or was",
+    "permanentlyMoved": "permanently moved"
+  },
+  "publication": {
+    "backToSearch": "Back to search",
+    "noTitle": "No title",
+    "subjects": "Keywords",
+    "creators": "Authors",
+    "resourceType": "Publication type",
+    "publicationYear": "Publication year",
+    "institution": "Organization",
+    "classifications": "Scientific field",
+    "fileForDownload": "File for download",
+    "files": "Files"
+  },
+  "enums": {
+    "searchFieldType": {
+      "all": "All",
+      "title": "Title",
+      "creator": "Author",
+      "creatorIdentifier": "Author ORCID",
+      "description": "Description",
+      "subject": "Keywords",
+      "publisher": "Publisher",
+      "awardTitle": "Project name",
+      "awardNumber": "Project ID",
+      "resourceIdentifier": "Resource ID",
+      "content": "Content",
+      "publicationYear": "Publication year",
+      "accessRight": "Access rights",
+      "funderName": "Funding organization",
+      "fundingStream": "Funding source",
+      "languages": "Language",
+      "institution": "Organization",
+      "resourceType": "Resource type",
+      "classifications": "Scientific field"
+    }
+  }
+}

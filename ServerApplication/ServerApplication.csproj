@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.2</TargetFramework>
+		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="HandleModule\HandleServerAdapter.cs" />
+	  <Compile Remove="HandleModule\IHandleServerAdapter.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FileStorageNetCore" Version="1.3.6" />
+		<PackageReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+		<PackageReference Include="Polly" Version="7.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MetadataHarvesting.Models\MetadataHarvesting.Models.csproj" />
+		<ProjectReference Include="..\MetadataProvider.Core\MetadataProvider.Core.csproj" />
+		<ProjectReference Include="..\FullTextSearch\FullTextSearch.csproj" />
+		<ProjectReference Include="..\OpenScience.Common\OpenScience.Common.csproj" />
+		<ProjectReference Include="..\OpenScience.Data\OpenScience.Data.csproj" />
+		<ProjectReference Include="..\OpenScience.Handle\OpenScience.Handle.csproj" />
+		<ProjectReference Include="..\OpenScience.Services\OpenScience.Services.csproj" />
+	</ItemGroup>
+
+</Project>

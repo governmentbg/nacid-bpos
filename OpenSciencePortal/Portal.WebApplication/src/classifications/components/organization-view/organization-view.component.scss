@@ -1,0 +1,26 @@
+@import '../../../variables';
+
+.root {
+  .classification-root {
+    padding: 12px  0px 0px 20px;
+    //border: 1px dashed $secondary;
+  }
+
+  .classification-name {
+    font-family: 'Roboto Slab', serif;
+    color: $primary;
+    font-size: 16px;
+
+    &.clickable:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .search-icon {
+    color: $primary;
+    font-size: 10px; 
+    margin-left: 8px;
+    cursor: pointer;
+  }
+}

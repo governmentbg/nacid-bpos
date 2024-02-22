@@ -1,0 +1,113 @@
+/* TODO: download fonts / optimize fonts to reduce download time */
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Slab:200, 400, 800&display=swap&subset=cyrillic');
+@import "./variables";
+@import "./mixins";
+@import "node_modules/bootstrap/scss/bootstrap";
+
+html {
+  height: 100vh;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: theme-color('normal');
+  height: 100%;
+  overflow-x: hidden;
+  @include scrollbars(.5em, lighten($normal, 25%), $white);
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  font-size: 34px;
+  font-weight: 200;
+}
+
+@include media-breakpoint-down("md"){
+  .section-title {
+    font-size: 30px;
+  }
+}
+
+input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 11px;
+  border: $input-border-size solid $gray;
+}
+
+.btn {
+  border-radius: 1px;
+
+  &.main {
+    padding: 9px 32px 10px 32px;
+    text-transform: uppercase;
+  }
+}
+
+.link {
+  text-decoration: underline;
+  color: $primary;
+  cursor: pointer;
+  transition: color .1s ease-in;
+
+  &:hover {
+    color: darken($color: $primary, $amount: 25%);
+  }
+}
+
+.badge {
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  font-weight: normal;
+  border: 1px solid transparent;
+  border-radius: 2px;
+
+  & {
+    margin-left: 4px;
+  }
+
+  &.pill {
+    border-radius: 15px;
+    padding: 4px 10px;
+  }
+
+  &.default {
+    border-color: $gray;
+    color: $normal;
+  }
+
+  &.secondary-outlined {
+    border-color: $secondary;
+    color: darken($secondary, 5%);
+    font-weight: bold;
+  }
+
+  &.secondary-contained {
+    background-color: $secondary;
+    color: $black;
+  }
+
+  &.primary-outlined {
+    border-color: $primary;
+    color: $primary;
+    font-weight: bold;
+  }
+
+  &.primary-contained {
+    background-color: $primary;
+    color: $white;
+  }
+
+  &.creators-badge {
+    background-color: $normal;
+    color: $white;
+  }
+}

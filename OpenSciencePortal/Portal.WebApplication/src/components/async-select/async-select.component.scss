@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.select-dropdown-menu {
+  overflow-x: hidden;
+
+  .search {
+    display: flex;
+    padding: 8px 8px 8px 1.5rem;
+    width: 100%;
+    color: $normal;
+  }
+
+  input {
+    margin: 0;
+    margin-right: 8px;
+    padding: 0;
+    padding-bottom: 8px;
+    outline: none !important;
+    border: none;
+    border-bottom: 1px solid $normal;
+  }
+}

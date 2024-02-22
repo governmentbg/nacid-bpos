@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2 translate>user.login.title</h2>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form #loginForm="ngForm"
+          class="login-form">
+      <mat-form-field>
+        <mat-label translate>user.login.username</mat-label>
+        <input matInput
+               name="username"
+               [(ngModel)]="model.username"
+               required />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label translate>user.login.password</mat-label>
+        <input matInput
+               name="password"
+               type="password"
+               [(ngModel)]="model.password"
+               required />
+      </mat-form-field>
+      <ng-container *ngIf="errors.length">
+        <em *ngFor="let error of errors"
+            class="error">
+          {{ error | translate }}
+        </em>
+      </ng-container>
+
+      <button mat-raised-button
+              color="primary"
+              (click)="login()"
+              [disabled]="!loginForm.valid">
+        {{ 'user.login.loginBtn' | translate }}
+      </button>
+    </form>
+
+    <div style="text-align: center; padding: 1em; padding-bottom: 0;">
+      <a [routerLink]="['/forgottenPassword']">
+        {{ 'user.login.forgotenPasswordLink' | translate }}
+      </a>
+    </div>
+  </mat-card-content>
+</mat-card>

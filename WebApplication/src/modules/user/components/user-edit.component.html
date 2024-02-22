@@ -1,0 +1,149 @@
+<div class="custom-panel">
+  <div class="custom-panel-wrapper">
+    <div class="custom-panel-header">
+      <div class="custom-panel-header-title"
+           translate>
+        user.edit.title
+      </div>
+
+      <ng-container *ngIf="isActivationEnabled && model.id && model.isActive">
+        <button *ngIf="!model.isLocked"
+                mat-raised-button
+                color="primary"
+                (click)="deactivate()">
+          {{ 'user.edit.deactivateBtn' | translate }}
+        </button>
+
+        <button *ngIf="model.isLocked"
+                mat-raised-button
+                color="primary"
+                (click)="sendActivationMail()">
+          {{ 'user.edit.sendActivationMailBtn' | translate }}
+        </button>
+      </ng-container>
+
+    </div>
+    <div class="custom-panel-body">
+      <form #authorCreationForm="ngForm">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.edit.username</mat-label>
+            <input matInput
+                   name="username"
+                   [(ngModel)]="model.username"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.edit.fullname</mat-label>
+            <input matInput
+                   name="name"
+                   [(ngModel)]="model.fullname"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.edit.email</mat-label>
+            <input matInput
+                   name="mail"
+                   type="email"
+                   #mail="ngModel"
+                   [(ngModel)]="model.email"
+                   emailValidation
+                   [acceptNull]="true"
+                   required
+                   [disabled]="!isEditMode">
+            <mat-error *ngFor="let error of mail.errors | keyvalue">
+              {{ 'user.create.errors.' + error.key | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="col-sm-12 col-lg-4 offset-lg-4">
+            <ab-nomenclature-select name="role"
+                                    restUrl="/api/Role"
+                                    placeholder="{{ 'user.edit.role' | translate }}"
+                                    [(ngModel)]="model.role"
+                                    (ngModelChange)="model.roleId = $event?.id"
+                                    required
+                                    [disabled]="!isEditMode"></ab-nomenclature-select>
+          </div>
+        </div>
+
+        <div *ngIf="model.role && model.role?.alias === userRoleAliases.SCIENTIST"
+             class="row">
+          <mat-form-field class="col-sm-12 col-lg-4 offset-lg-4">
+            <mat-label translate>user.edit.orcid</mat-label>
+            <input matInput
+                   name="orcid"
+                   [(ngModel)]="model.orcid"
+                   [disabled]="!isEditMode">
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="model.role && model.role?.alias !== userRoleAliases.ADMINISTRATOR"
+             class="row">
+          <div *ngFor="let institution of model.institutions; let i = index;"
+               class="col-sm-12 col-lg-4 offset-lg-4">
+            <div class="row">
+              <div class="col-sm-{{ model.institutions?.length === 1 ? '12' : '10' }}">
+                <ab-nomenclature-select name="institution-{{i}}"
+                                        restUrl="/api/Institution/Select"
+                                        placeholder="{{ 'user.edit.organization' | translate }}"
+                                        [(ngModel)]="model.institutions[i].institution"
+                                        (ngModelChange)="model.institutions[i].institutionId = $event?.id"
+                                        [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                        [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                        required
+                                        [disabled]="!isEditMode"></ab-nomenclature-select>
+              </div>
+
+              <div *ngIf="isEditMode && model.role && model.role?.alias === userRoleAliases.SCIENTIST && model.institutions.length > 1"
+                   class="col-sm-2">
+                <button mat-icon-button
+                        color="warn"
+                        (click)="removeInstitution(i)">
+                  <i class="material-icons">delete</i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="isEditMode && model.role && model.role?.alias === userRoleAliases.SCIENTIST"
+               class="form-group col-sm-12 offset-sm-4">
+            <button mat-raised-button
+                    (click)="addInstitution()">
+              <i class="material-icons">add</i>
+              {{ 'user.create.addOrganizationBtn' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="model.isActive"
+             class="row">
+          <div class="col-sm-4 offset-sm-4">
+            <button *ngIf="!isEditMode"
+                    mat-raised-button
+                    color="primary"
+                    (click)="edit()">
+              {{ 'user.edit.editBtn' | translate }}
+            </button>
+
+            <button *ngIf="isEditMode"
+                    mat-raised-button
+                    color="primary"
+                    (click)="save()">
+              {{ 'user.edit.saveBtn' | translate }}
+            </button>
+
+            <button *ngIf="isEditMode"
+                    mat-raised-button
+                    style="margin-left: 1rem;"
+                    (click)="cancel()">
+              {{ 'user.edit.cancelBtn' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

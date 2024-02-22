@@ -1,0 +1,62 @@
+:host {
+  position: relative;
+  color: #ffffff;
+  text-align: center;
+}
+
+:host.highlighted {
+  background: #212cb3;
+}
+
+:host > div {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.user-info {
+  margin: 0 5px;
+}
+
+.vertical-menu {
+  position: absolute;
+  background-color: #190e8f;
+  width: 100%;
+  top: 100%;
+  z-index: 99999;
+}
+
+.vertical-menu:before {
+  content: "";
+  position: absolute;
+  right: 11px;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #ffb300 transparent;
+  z-index: 9999;
+}
+
+.vertical-menu ul {
+  padding: 0 !important;
+}
+
+.vertical-menu li {
+  line-height: 1.5em;
+}
+
+.vertical-menu li div {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.vertical-menu li:hover {
+  background-color: #212cb3;
+  cursor: pointer;
+}
+
+.vertical-menu li mat-icon {
+  margin-right: 5px;
+}

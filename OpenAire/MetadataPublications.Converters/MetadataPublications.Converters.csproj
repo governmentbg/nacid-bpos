@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+	  <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetadataHarvesting.Core\MetadataHarvesting.Core.csproj" />
+    <ProjectReference Include="..\MetadataHarvesting.Models\MetadataHarvesting.Models.csproj" />
+    <ProjectReference Include="..\OpenScience.Data\OpenScience.Data.csproj" />
+    <ProjectReference Include="..\OpenScience.Services\OpenScience.Services.csproj" />
+  </ItemGroup>
+
+</Project>

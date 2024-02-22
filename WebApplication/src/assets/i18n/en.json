@@ -1,0 +1,484 @@
+{
+  "app": {
+    "login": "Sign in",
+    "menu": {
+      "search": "Search",
+      "classifications": "Classifications",
+      "publications": "Publications",
+      "institutions": "Institutions",
+      "nomenclatures": "Nomenclatures",
+      "users": "Users"
+    },
+    "loading": "Loading...",
+    "successMessages": {
+      "userCreation": "The user was created successfully!"
+    },
+    "errorTexts": {
+      "classification_CannotEditClassification": "The classification cannot be modified!",
+      "classification_CannotDeleteClassification": "The classification cannot be deleted!"
+    }
+  },
+  "user": {
+    "login": {
+      "title": "Sign in",
+      "username": "Username",
+      "password": "Password",
+      "errors": {
+        "User_InvalidCredentials": "Invalid credentials"
+      },
+      "loginBtn": "Sign in",
+      "forgotenPasswordLink": "Forgot password"
+    },
+    "changePasswordBtn": "Change password",
+    "logoutBtn": "Logout",
+    "changePasswordModal": {
+      "title": "Change password",
+      "oldPassword": "Enter old password",
+      "newPassword": "Enter new password",
+      "newPasswordAgain": "Enter new password again",
+      "closeBtn": "Close",
+      "changeBtn": "Change",
+      "successMessage": "Your password was successfully changed!",
+      "errors": {
+        "required": "Required field",
+        "passwordMismatch": "Passwords mismatch",
+        "incorrectPassword": "Wrong password",
+        "invalidPasswordFormat": "Password must contain a small and a capital letter, digit and must be at least 6 characters long"
+      }
+    },
+    "activation": {
+      "title": "Account activation",
+      "password": "Enter your password",
+      "passwordAgain": "Enter your password again",
+      "errors": {
+        "mismatchingPasswords": "The passwords are not matching.",
+        "tokenExpired": "The activation link is expired.",
+        "tokenUsed": "User with this mail has been already activated.",
+        "required": "Required field",
+        "invalidPasswordFormat": "Password must contain a small and a capital letter, digit and must be at least 6 characters long"
+      },
+      "activateBtn": "Activate",
+      "successMsg": "Your user profile was successfully activated",
+      "loginLink": "Login"
+    },
+    "create": {
+      "title": "User creation",
+      "username": "Username",
+      "fullname": "Name",
+      "email": "Email",
+      "role": "Role",
+      "orcid": "ORCID",
+      "organization": "Organization",
+      "addOrganizationBtn": "Add organization",
+      "saveBtn": "Save",
+      "cancelBtn": "Cancel",
+      "errors": {
+        "taken": "Username is already in use.",
+        "required": "The field is required.",
+        "mailTaken": "Email is already in use.",
+        "invalidEmail": "Invalid email."
+      }
+    },
+    "edit": {
+      "title": "Account",
+      "deactivateBtn": "Deactivate",
+      "username": "Username",
+      "fullname": "Name",
+      "role": "Role",
+      "email": "Email",
+      "orcid": "ORCID",
+      "organization": "Organization",
+      "deactivationConfirmation": {
+        "header": "User deactivation",
+        "body": "Are you sure you want to deactivate the user?",
+        "acceptText": "Deactivate",
+        "declineText": "No"
+      },
+      "editBtn": "Edit",
+      "saveBtn": "Save",
+      "cancelBtn": "Cancel",
+      "sendActivationMailBtn": "Send activation mail"
+    },
+    "search": {
+      "filterPanelTitle": "Filter",
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "createDate": "Creation date",
+      "updateDate": "Last modification date",
+      "isActive": "Is active",
+      "isLocked": "Is locked",
+      "searchBtn": "Search",
+      "clearBtn": "Clear",
+      "addNewBtn": "Create user"
+    }
+  },
+  "classification": {
+    "base": {
+      "addClassificationBtn": "Create classification"
+    },
+    "creationModal": {
+      "title": "New classification",
+      "parentClassification": "Parent classification",
+      "organization": "Parent organization",
+      "name": "Classification name",
+      "isOpenAirePropagationEnabled": "Is visible in OpenAIRE",
+      "isFromHarvesting": "Harvesting enabled",
+      "harvestUrl": "Harvest URL",
+      "metadataFormat": "Metadata format",
+      "defaultResourceType": "Default resource type",
+      "defaultResourceIdentifierType": "Default resource identifier type",
+      "defaultLicenseType": "Default license condition",
+      "defaultAccessRight": "Default access right",
+      "defaultLicenseStartDate": "Default license start date",
+      "harvestSets": "Harvest sets",
+      "selectAllSets": "Select all",
+      "deselectAllSets": "Clear",
+      "createBtn": "Create",
+      "editBtn": "Save",
+      "cancelBtn": "Cancel"
+    },
+    "viewer": {
+      "addSubClassificationBtn": "Create",
+      "editSubClassificationBtn": "Edit",
+      "deleteSubClassificationBtn": "Delete",
+      "emptyOrganizationName": "Common classification"
+    },
+    "messages": {
+      "repositoryInvalidFailureMessage": "Invalid OAI PMH address"
+    }
+  },
+  "institution": {
+    "edit": {
+      "title": "Institution details",
+      "deactivateBtn": "Deactivate",
+      "name": "Organization name",
+      "repositoryUrl": "Institutional repository URL",
+      "areCommonClassificationsVisible": "Common classifications are visible",
+      "editBtn": "Edit",
+      "saveBtn": "Save",
+      "cancelBtn": "Cancel"
+    },
+    "deactivationConfirmation": {
+      "header": "Organization deactivation",
+      "body": "Are you sure that you want to deactivate selected organization?",
+      "acceptText": "Deactivate",
+      "declineText": "Cancel"
+    },
+    "search": {
+      "filterPanelTitle": "Filter",
+      "name": "Organization name",
+      "repositoryUrl": "Institutional repository URL",
+      "areCommonClassificationsVisible": "View common classifications",
+      "isActive": "Is active",
+      "searchBtn": "Search",
+      "clearBtn": "Clear",
+      "addNewBtn": "Create organization",
+      "loadMoreBtn": "Load more"
+    },
+    "messages": {
+      "modificationSuccessMessage": "The organization was updated successfully!",
+      "creationSuccessMessage": "The organization was created successfully!",
+      "deactivationSuccessMessage": "The organization was deactivated sucessfully!"
+    }
+  },
+  "publication": {
+    "base": {
+      "editHeader": "Publication preview",
+      "newHeader": "New publication",
+      "saveBtn": "Save",
+      "editBtn": "Edit",
+      "cancelBtn": "Cancel",
+      "markPendingApprovalBtn": "Send for approval",
+      "denyBtn": "Deny",
+      "publishBtn": "Publish",
+      "hideEmptyPanels": "Hide empty sections",
+      "basicInformationStepTitle": "Basic information",
+      "additionalInformationStepTitle": "Additional information",
+      "licenseStepTitle": "License condition",
+      "attachedFilesStepTitle": "Attached files",
+      "publishStepTitle": "Publish",
+      "stepRequiredError": "Please, fill in all required fields",
+      "nextStepBtn": "Next",
+      "backStepBtn": "Back",
+      "backBtn": "Back"
+    },
+    "messages": {
+      "successCreationMessage": "The publication was created successfully!",
+      "successUpdateMessage": "The publication was updated successfully!",
+      "failureCreationMessage": "An error has occured during publication creation! Please, contact system administration!"
+    },
+    "confirmationModal": {
+      "header": "Publication status change",
+      "defaultBody": "Do you want to save the changes?",
+      "acceptText": "Save",
+      "declineText": "Cancel",
+      "draft": {
+        "body": "Do you want to save the publication as draft?"
+      },
+      "pendingApproval": {
+        "body": "Do you want to send the publication for approval?"
+      },
+      "published": {
+        "body": "Do you want to publish the publication?"
+      },
+      "notApproved": {
+        "body": "Do you want to deny the publication?"
+      }
+    },
+    "cancelConfirmationModal": {
+      "header": "Publication modification cancelation",
+      "body": "Do you want to cancel modification of the publication?",
+      "acceptText": "Yes",
+      "declineText": "No"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "pendingApproval": "Pending approval",
+      "notApproved": "Not approved",
+      "deleted": "Deleted",
+      "published": "Published"
+    },
+    "search": {
+      "filterPanelTitle": "Filter",
+      "filterTitle": "Title",
+      "filterCreatorFirstName": "Creator given name",
+      "filterCreatorLastName": "Creator family name",
+      "filterInstitution": "Organization",
+      "filterStatus": "Status",
+      "searchBtn": "Search",
+      "clearBtn": "Clear",
+      "addNewBtn": "Add new publication",
+      "titlesTh": "Titles",
+      "authorsTh": "Creators",
+      "statusTh": "Status",
+      "modificationDateTh": "Last modification date",
+      "loadMoreBtn": "Load more"
+    },
+    "noResults": "No information",
+    "cardinality": {
+      "mandatory": "mandatory",
+      "mandatoryIfApplicable": "mandatory if applicable",
+      "recommended": "recommended",
+      "optional": "optional"
+    },
+    "resourceTypePanel": {
+      "title": "Resource type",
+      "resourceType": "Type"
+    },
+    "titlesPanel": {
+      "title": "Title",
+      "value": "Title",
+      "removeBtn": "Remove",
+      "titleType": "Type",
+      "language": "Language",
+      "addBtn": "Add title"
+    },
+    "creatorsPanel": {
+      "title": "Creator",
+      "firstName": "Given name",
+      "lastName": "Family name",
+      "removeBtn": "Remove",
+      "identifier": "Name identifier",
+      "nameIdentifierScheme": "Name identifier scheme",
+      "addIdentifierBtn": "Add identifier",
+      "affiliationInstitutionName": "Affiliation",
+      "addAffiliationBtn": "Add affiliation",
+      "addBtn": "Add creator"
+    },
+    "contributorsPanel": {
+      "title": "Contributor",
+      "nameTypes": {
+        "personal": "Personal",
+        "organizational": "Organization"
+      },
+      "removeBtn": "Remove",
+      "contributorType": "Contributor type",
+      "personal": {
+        "firstName": "Given name",
+        "lastName": "Family name",
+        "institutionAffiliationName": "Contributor affiliation",
+        "identifierScheme": "Identifier scheme",
+        "identifierValue": "Personal contributor identifier"
+      },
+      "organizational": {
+        "name": "Organization",
+        "nameTypeShort": "Organizational",
+        "identifierScheme": "Identifier scheme",
+        "identifierValue": "Organizational identifier"
+      },
+      "addIdentifierBtn": "Add identifier",
+      "addBtn": "Add contributor"
+    },
+    "descriptionsPanel": {
+      "title": "Description",
+      "value": "Enter publication description",
+      "removeBtn": "Remove",
+      "language": "Language",
+      "addBtn": "Add description"
+    },
+    "languagesPanel": {
+      "title": "Language",
+      "value": "Language",
+      "removeBtn": "Remove",
+      "addBtn": "Add language"
+    },
+    "resourceIdentifierPanel": {
+      "title": "Resource identifier",
+      "value": "Identifier",
+      "identifierType": "Identifier type"
+    },
+    "publicationDatePanel": {
+      "title": "Publication date",
+      "publishYear": "Year",
+      "publishMonth": "Month",
+      "publishDay": "Day",
+      "errors": {
+        "required": "Required field",
+        "invalidYear": "Invalid year",
+        "invalidMonth": "Invalid month",
+        "invalidDay": "Invalid day"
+      }
+    },
+    "versionPanel": {
+      "title": "Resource version",
+      "value": "Version"
+    },
+    "subjectsPanel": {
+      "title": "Subject",
+      "value": "Enter subject",
+      "language": "Language",
+      "removeBtn": "Remove",
+      "addBtn": "Add subject"
+    },
+    "fundingReferencesPanel": {
+      "title": "Funding reference",
+      "name": "Funder name",
+      "removeBtn": "Remove",
+      "identifier": "Funder identifier",
+      "identifierScheme": "Funder identifier type",
+      "awardNumber": "Award number",
+      "awardTitle": "Award title",
+      "awardURI": "URL",
+      "addBtn": "Add funding reference"
+    },
+    "relatedIdentifiersPanel": {
+      "title": "Related identifier",
+      "resourceType": "Related resource type",
+      "removeBtn": "Remove",
+      "value": "Related identifier",
+      "identifierType": "Related identifier type",
+      "relationType": "Relation type",
+      "relatedMetadataScheme": "Related metadata scheme",
+      "schemeURI": "URI",
+      "schemeType": "Scheme type",
+      "addBtn": "Add related identifier"
+    },
+    "alternateIdentifiersPanel": {
+      "title": "Alternate identifier",
+      "value": "Alternate identifier",
+      "identifierType": "Identifier type",
+      "removeBtn": "Remove",
+      "addBtn": "Add alternate identifier"
+    },
+    "sourcesPanel": {
+      "title": "Source",
+      "value": "Source",
+      "removeBtn": "Remove",
+      "addBtn": "Add source"
+    },
+    "publishersPanel": {
+      "title": "Publisher",
+      "name": "Publisher",
+      "removeBtn": "Remove",
+      "addBtn": "Add publisher"
+    },
+    "coveragesPanel": {
+      "title": "Coverage",
+      "value": "Coverage",
+      "removeBtn": "Remove",
+      "addBtn": "Add coverage"
+    },
+    "citationsPanel": {
+      "title": "Citation",
+      "citationTitle": "Title name",
+      "citationVolume": "Volume",
+      "citationIssue": "Issue number",
+      "citationStartPage": "Start page number",
+      "citationEndPage": "End page number",
+      "citationEdition": "Edition number",
+      "citationConferencePlace": "Conference place name",
+      "citationConferenceStartDate": "Conference start date",
+      "citationConferenceEndDate": "Conference end date",
+      "errors": {
+        "invalidMinValue": "Invalid value"
+      }
+    },
+    "audiencesPanel": {
+      "title": "Audience",
+      "audienceType": "Audience type",
+      "removeBtn": "Remove",
+      "addBtn": "Add audience"
+    },
+    "accessRightsPanel": {
+      "title": "Access rights",
+      "embargoPeriodStart": "Embargo period start date",
+      "embargoPeriodEnd": "Embargo period end date"
+    },
+    "licenseTypePanel": {
+      "title": "License condition",
+      "licenseType": "License type",
+      "otherLicenseCondition": "License condition",
+      "otherLicenseUrl": "URL",
+      "licenseStartDate": "License start date"
+    },
+    "filesPanel": {
+      "title": "Attached files",
+      "fileTh": "File",
+      "sizeTh": "Size"
+    },
+    "publishPanel": {
+      "moderatorInstitution": "Moderator organization",
+      "saveDraft": "Save as draft",
+      "savePendingApproval": "Apply for approval",
+      "savePublished": "Publish"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "advanced": "Advanced search",
+    "advanced.fieldTypeLabel": "Search for:",
+    "advanced.searchTerm.placeholder": "",
+    "searchBtn": "Search",
+    "clearBtn": "Clear",
+    "quickSearch.label": "Search",
+    "quickSearch.placeholder": "Search in title, content, creators...",
+    "resultCount": "Showing {{count}} results from {{totalCount}} ({{timeElapsed}} sec.)",
+    "noResultsFound": "No publications found"
+  },
+  "enums": {
+    "searchFieldType": {
+      "all": "All",
+      "title": "Title",
+      "creator": "Author",
+      "creatorIdentifier": "CreatorIdentifier",
+      "description": "Description",
+      "subject": "Keywords",
+      "publisher": "Publisher",
+      "awardTitle": "AwardTitle",
+      "awardNumber": "AwardNumber",
+      "resourceIdentifier": "ResourceIdentifier",
+      "content": "Content",
+      "publicationDate": "Publication date",
+      "publicationYear": "Publication year",
+      "accessRight": "Acess right",
+      "funderName": "Funder name",
+      "fundingStream": "Funding project",
+      "language": "Language",
+      "institution": "Institution",
+      "resourceType": "Publication type",
+      "classification": "Scientific classification"
+    }
+  }
+}

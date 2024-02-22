@@ -1,0 +1,13 @@
+<mat-card *ngFor="let systemMessage of systemMessages"
+          class="mat-elevation-z4 {{ systemMessageTypes[systemMessage.type] }}">
+  <mat-card-content>
+    <div class="system-message-text">
+      {{ systemMessage.text | translate }}
+    </div>
+
+    <mat-icon style="cursor: pointer;"
+              (click)="removeSystemMessage(systemMessage)">
+      cancel
+    </mat-icon>
+  </mat-card-content>
+</mat-card>

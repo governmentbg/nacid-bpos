@@ -1,0 +1,52 @@
+<div class="container"
+     style="padding-left: 0px;">
+  <div class="category special"
+       *ngIf="fields.value && fields.value.length > 0">
+    <h5 class="title">{{ 'search.sidebar.filters' | translate }}</h5>
+
+    <span id="sidebar-clear"
+          (click)="clearFilter()">
+      <fa-icon [icon]="faTimesCircle"></fa-icon>
+      {{ 'search.sidebar.clear' | translate }}
+    </span>
+
+    <div *ngFor="let item of fields.value;let i=index"
+         class="toggles">
+      <ng-container *ngIf="item.searchTerm !== SEARCH_FIELD_SPEC[item.type].defaultValue">
+        <input id="filter-{{item.type}}-{{i}}"
+               type="checkbox"
+               [checked]="true"
+               (click)="handleFilterRemove(i)" />
+        <label for="filter-{{item.type}}-{{i}}"
+               class="checkbox">
+          {{item.controlMetadata.model?.name || item.searchTerm}}
+        </label>
+      </ng-container>
+    </div>
+
+  </div>
+
+  <div class="category"
+       *ngFor="let category of categories;let i=index">
+    <h5 class="title">{{ 'enums.searchFieldType.' + SearchFieldType[category] | translate}}</h5>
+
+    <app-show-more [collection]="data[SEARCH_FIELD_SPEC[category].name]">
+      <ng-template #itemTemplate
+                   let-item
+                   let-j="index">
+        <div class="toggles">
+          <input id="category-{{category}}-{{j}}"
+                 type="checkbox"
+                 [checked]="item.selected"
+                 (click)="handleCheckboxChange(category, item)" />
+          <label for="category-{{category}}-{{j}}"
+                 class="checkbox">
+            {{item.name}}
+            ({{item.count}})
+          </label>
+        </div>
+
+      </ng-template>
+    </app-show-more>
+  </div>
+</div>

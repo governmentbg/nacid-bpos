@@ -1,0 +1,22 @@
+.confirm-header {
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.confirm-body {
+  padding: 1em;
+  text-align: center;
+}
+
+.confirm-body > div.data {
+  margin-bottom: 2em;
+}
+
+.confirm-actions > button {
+  width: 165px;
+}
+
+.confirm-actions > button:not(:last-of-type) {
+  margin-right: 20px;
+}

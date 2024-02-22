@@ -1,0 +1,76 @@
+.input-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: calc(100% - 2em) !important;
+}
+
+.input-icon {
+  position: absolute;
+  right: 0;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.popup-container .input-icon {
+  top: 9px;
+}
+
+.buttons-container {
+	background-color: white;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.buttons-container>span {
+	margin-left: 3px;
+}
+
+.button-item {
+	cursor: pointer;
+}
+
+.disabled-nomenclature-select {
+	pointer-events: none;
+}
+
+.search-field {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 10px;
+}
+
+.popup-container {
+	position: absolute;
+	top: 2em;
+  left: 0;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-top: none;
+	box-sizing: border-box;
+	background: #fff;
+	z-index: 99999;
+}
+
+.popup-container>input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.results-container {
+  overflow: auto;
+  max-height: 14em;
+}
+
+.options-item {
+	padding: 10px;
+	display: block;
+}
+
+.options-item:hover {
+	cursor: pointer;
+	background-color: #2196F3;
+	color: #fff;
+}

@@ -1,0 +1,33 @@
+<div class="viewer-wrapper">
+  <div class="viewer-header">
+    <div class="viewer-header-title">
+      {{ classification.name }}
+      ({{ classification.organizationName || ('classification.viewer.emptyOrganizationName' | translate) }})
+    </div>
+
+    <button mat-raised-button
+            color="primary"
+            (click)="editClassification(classification.id, collection)"
+            style="margin-right: 1em;">
+      {{ 'classification.viewer.editSubClassificationBtn' | translate }}
+    </button>
+
+    <button *ngIf="!classification.children?.length && !classification.publications?.length"
+            mat-raised-button
+            color="primary"
+            (click)="deleteClassification(classification.id, collection)"
+            style="margin-right: 1em;">
+      {{ 'classification.viewer.deleteSubClassificationBtn' | translate }}
+    </button>
+
+    <button mat-raised-button
+            color="primary"
+            (click)="addClassification(classification, $event)">
+      {{ 'classification.viewer.addSubClassificationBtn' | translate }}
+    </button>
+  </div>
+  <div class="viewer-body">
+    <classification-children [children]="classification.children"
+                             [level]="1"></classification-children>
+  </div>
+</div>

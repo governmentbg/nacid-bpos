@@ -1,0 +1,55 @@
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="panel-title-space">
+      {{ 'publication.filesPanel.title' | translate }}
+      <span class="cardinality-text">
+        {{ 'publication.cardinality.mandatory' | translate }}
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <table *ngIf="files && files.length"
+         class="mat-elevation-z4 table table-sm"
+         style="margin-top: 1rem;">
+    <thead>
+      <tr>
+        <th style="width: 46%; font-weight: 500; font-size: 14px; vertical-align: middle;">
+          {{ 'publication.filesPanel.fileTh' | translate }}
+        </th>
+        <th style="width: 46%; font-weight: 500; font-size: 14px; vertical-align: middle;">
+          {{ 'publication.filesPanel.sizeTh' | translate }}
+        </th>
+        <th *ngIf="!disabled"
+            style="width: 8%; font-weight: 500; font-size: 14px; vertical-align: middle;">
+          <file-select-button (fileSelected)="uploadFile($event)"></file-select-button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of files; let i = index;">
+        <td>
+          <a *ngIf="file.name"
+             href="api/FilesStorage?key={{ file.key }}&fileName={{ file.name }}&dbId={{ file.dbId }}"
+             target="_blank"
+             style="cursor: pointer;">{{ file.name }}</a>
+        </td>
+        <td>
+          {{ file.size | fileSize }}
+        </td>
+        <td>
+          <button *ngIf="!disabled && canDeleteUploaded"
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteUploadedFile(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-action-row *ngIf="!disabled && (!files || !files.length)">
+    <file-select-button (fileSelected)="uploadFile($event)"></file-select-button>
+  </mat-action-row>
+
+</mat-expansion-panel>

@@ -1,0 +1,694 @@
+<div style="display: flex; justify-content: space-between;">
+  <h4 translate>{{ model.id ? 'publication.base.editHeader' : 'publication.base.newHeader' }}</h4>
+  <div *ngIf="arePublicationActionsVisible">
+    <ng-container *ngIf="canEditPublication">
+      <button *ngIf="!isEditMode"
+              mat-raised-button
+              color="primary"
+              (click)="edit()"
+              style="margin-right: 10px">
+        <mat-icon>edit</mat-icon>
+        {{ 'publication.base.editBtn' | translate }}
+      </button>
+
+      <ng-container *ngIf="isEditMode">
+
+        <button mat-raised-button
+                (click)="savePublication()"
+                color="primary"
+                style="margin-right: 10px"
+                [disabled]="!isValid">
+          <mat-icon>save</mat-icon>
+          {{ 'publication.base.saveBtn' | translate }}
+        </button>
+
+        <button mat-raised-button
+                (click)="cancelEdit()"
+                style="margin-right: 10px">
+          <mat-icon>cancel</mat-icon>
+          {{ 'publication.base.cancelBtn' | translate }}
+        </button>
+      </ng-container>
+
+      <button *ngIf="canMarkPendingApproval && !isEditMode"
+              mat-raised-button
+              (click)="markPending()"
+              style="margin-right: 10px"
+              class="btn-success">
+        <mat-icon>visibility</mat-icon>
+        {{ 'publication.base.markPendingApprovalBtn' | translate }}
+      </button>
+    </ng-container>
+
+    <button *ngIf="canDeny && !isEditMode"
+            mat-raised-button
+            (click)="deny()"
+            style="margin-right: 10px"
+            class="btn-success">
+      <mat-icon>visibility_off</mat-icon>
+      {{ 'publication.base.denyBtn' | translate }}
+    </button>
+
+    <button *ngIf="canPublish && !isEditMode"
+            mat-raised-button
+            (click)="publish()"
+            class="btn-success">
+      <mat-icon>desktop_windows</mat-icon>
+      {{ 'publication.base.publishBtn' | translate }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!isEditMode">
+  <mat-checkbox color="primary"
+                [(ngModel)]="hideEmptyPanels">
+    {{ 'publication.base.hideEmptyPanels' | translate }}
+  </mat-checkbox>
+</div>
+
+<mat-horizontal-stepper linear
+                        (selectionChange)="selectionChanged($event)">
+  <mat-step #matStep1
+            [completed]="steps[0].isValid || !isEditMode"
+            [hasError]="!steps[0].isValid && isEditMode && matStep1.interacted"
+            errorMessage="{{ 'publication.base.stepRequiredError' | translate }}">
+    <ng-template matStepLabel>
+      <span [ngClass]="{'test': !steps[0].isValid && isEditMode}">
+        {{ 'publication.base.basicInformationStepTitle' | translate }}
+      </span>
+    </ng-template>
+
+    <div class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            {{ 'publication.resourceTypePanel.title' | translate }}
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.mandatory' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form #resourceTypeForm="ngForm">
+          <div class="col-sm-12 col-md-6">
+            <ab-nomenclature-select name="publicationResourceType"
+                                    restUrl="/api/ResourceType"
+                                    placeholder="{{ 'publication.resourceTypePanel.resourceType' | translate }}"
+                                    [(ngModel)]="model.resourceType"
+                                    (ngModelChange)="model.resourceTypeId = $event?.id"
+                                    [disabled]="!isEditMode"
+                                    [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                    [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                    [required]="true"></ab-nomenclature-select>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <publication-titles *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.titles.length)))"
+                        class="panel-container"
+                        [(collection)]="model.titles"
+                        (isValidForm)="changeValidState(0, 'publication-titles', $event)"
+                        [disabled]="!isEditMode"></publication-titles>
+
+    <publication-creators *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.creators.length)))"
+                          class="panel-container"
+                          [(collection)]="model.creators"
+                          (isValidForm)="changeValidState(0, 'publicationCreators', $event)"
+                          [disabled]="!isEditMode"></publication-creators>
+
+    <publication-contributors *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.contributors.length)))"
+                              class="panel-container"
+                              [(collection)]="model.contributors"
+                              (isValidForm)="changeValidState(0, 'publication-contributors', $event)"
+                              [disabled]="!isEditMode"></publication-contributors>
+
+    <publication-descriptions *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.descriptions.length)))"
+                              class="panel-container"
+                              [(collection)]="model.descriptions"
+                              (isValidForm)="changeValidState(0, 'publication-descriptions', $event)"
+                              [disabled]="!isEditMode"></publication-descriptions>
+
+    <publication-languages *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.languages.length)))"
+                           class="panel-container"
+                           [(collection)]="model.languages"
+                           (isValidForm)="changeValidState(0, 'publication-languages', $event)"
+                           [disabled]="!isEditMode"></publication-languages>
+
+    <div *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && (model.identifier || model.identifierTypeId))))"
+         class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            <div style="max-width: 70%;">
+              {{ 'publication.resourceIdentifierPanel.title' | translate }}
+              <div class="panel-title-hint">
+                {{ 'publication.resourceIdentifierPanel.titleHint' | translate }}
+              </div>
+            </div>
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.mandatory' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="!isEditMode && !model.identifier && !model.identifierTypeId"
+             class="no-results-container"
+             translate>
+          publication.noResults
+        </div>
+
+        <form #publicationIdentifierForm="ngForm">
+          <div *ngIf="isEditMode || (!isEditMode && (model.identifier || model.identifierTypeId))"
+               class="row">
+            <mat-form-field class="col-sm-12 col-md-4">
+              <mat-label translate>publication.resourceIdentifierPanel.value</mat-label>
+              <input matInput
+                     name="publicationResourceIdentifierValue"
+                     [(ngModel)]="model.identifier"
+                     [disabled]="!isEditMode"
+                     [required]="model.identifierTypeId">
+            </mat-form-field>
+
+            <div class="col-sm-12 col-md-6">
+              <ab-nomenclature-select name="publicationResourceIdentifierType"
+                                      restUrl="/api/ResourceIdentifierType"
+                                      placeholder="{{ 'publication.resourceIdentifierPanel.identifierType' | translate }}"
+                                      [(ngModel)]="model.identifierType"
+                                      (ngModelChange)="model.identifierTypeId = $event?.id"
+                                      [disabled]="!isEditMode"
+                                      [required]="model.identifier?.length > 0"></ab-nomenclature-select>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            <div>
+              {{ 'publication.publicationDatePanel.title' | translate }}
+              <div class="panel-title-hint">
+                {{ 'publication.publicationDatePanel.titleHint' | translate }}
+              </div>
+            </div>
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.mandatory' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form #publicationDateForm="ngForm">
+          <mat-form-field class="col-sm-4 col-md-3">
+            <mat-label translate>publication.publicationDatePanel.publishYear</mat-label>
+            <input matInput
+                   type="number"
+                   name="publicationPublishYear"
+                   #publicationPublishYear="ngModel"
+                   [(ngModel)]="model.publishYear"
+                   [disabled]="!isEditMode"
+                   yearValidation
+                   minYear=1400
+                   (change)="publicationPublishDay.control.updateValueAndValidity()"
+                   required>
+            <mat-error *ngFor="let error of publicationPublishYear.errors | keyvalue">
+              {{ 'publication.publicationDatePanel.errors.' + error.key | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4 col-md-4">
+            <mat-label translate>publication.publicationDatePanel.publishMonth</mat-label>
+            <input matInput
+                   type="number"
+                   name="publicationPublishMonth"
+                   #publicationPublishMonth="ngModel"
+                   [(ngModel)]="model.publishMonth"
+                   [disabled]="!isEditMode"
+                   monthValidation
+                   (change)="publicationPublishDay.control.updateValueAndValidity()">
+            <mat-error *ngFor="let error of publicationPublishMonth.errors | keyvalue">
+              {{ 'publication.publicationDatePanel.errors.' + error.key | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4 col-md-3">
+            <mat-label translate>publication.publicationDatePanel.publishDay</mat-label>
+            <input matInput
+                   type="number"
+                   name="publicationPublishDay"
+                   #publicationPublishDay="ngModel"
+                   [(ngModel)]="model.publishDay"
+                   [disabled]="!isEditMode"
+                   dayValidation
+                   [year]="model.publishYear"
+                   [month]="model.publishMonth">
+            <mat-error *ngFor="let error of publicationPublishDay.errors | keyvalue">
+              {{ 'publication.publicationDatePanel.errors.' + error.key | translate}}
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <div *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.resourceVersion)))"
+         class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            <div>
+              {{ 'publication.versionPanel.title' | translate }}
+              <div class="panel-title-hint">
+                {{ 'publication.versionPanel.titleHint' | translate }}
+              </div>
+            </div>
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.recommended' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="!isEditMode && !model.resourceVersion"
+             class="no-results-container"
+             translate>
+          publication.noResults
+        </div>
+
+        <mat-form-field *ngIf="isEditMode || (!isEditMode && model.resourceVersion)"
+                        class="col-xs-12 col-sm-4">
+          <mat-label translate>publication.versionPanel.value</mat-label>
+          <input matInput
+                 name="publicationResourceVersion"
+                 [(ngModel)]="model.resourceVersion"
+                 [disabled]="!isEditMode">
+        </mat-form-field>
+      </mat-expansion-panel>
+    </div>
+
+    <publication-step-actions style="margin-top: 15px;"
+                              nextBtnText="{{ 'publication.base.nextStepBtn' | translate }}"
+                              [showBackBtn]="false"
+                              [disableNextBtn]="!steps[0].isValid && isEditMode"></publication-step-actions>
+  </mat-step>
+
+  <mat-step #matStep2
+            [completed]="steps[1].isValid || !isEditMode"
+            [hasError]="!steps[1].isValid && isEditMode && matStep2.interacted"
+            errorMessage="{{ 'publication.base.stepRequiredError' | translate }}">
+    <ng-template matStepLabel>
+      {{ 'publication.base.additionalInformationStepTitle' | translate }}
+    </ng-template>
+
+    <publication-subjects *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.subjects.length)))"
+                          class="panel-container"
+                          [(collection)]="model.subjects"
+                          (isValidForm)="changeValidState(1, 'publicationSubjectsForm', $event)"
+                          [disabled]="!isEditMode"></publication-subjects>
+
+    <publication-funding-references *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.fundingReferences.length)))"
+                                    class="panel-container"
+                                    [(collection)]="model.fundingReferences"
+                                    (isValidForm)="changeValidState(1, 'publicationFundingReferencesForm', $event)"
+                                    [disabled]="!isEditMode"></publication-funding-references>
+
+    <publication-related-identifiers *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.relatedIdentifiers.length)))"
+                                     class="panel-container"
+                                     [(collection)]="model.relatedIdentifiers"
+                                     (isValidForm)="changeValidState(1, 'publicationRelatedIdentifiersForm', $event)"
+                                     [disabled]="!isEditMode"></publication-related-identifiers>
+
+    <publication-alternate-identifiers *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.alternateIdentifiers.length)))"
+                                       class="panel-container"
+                                       [(collection)]="model.alternateIdentifiers"
+                                       (isValidForm)="changeValidState(1, 'publicationAlternateIdentifiersForm', $event)"
+                                       [disabled]="!isEditMode"></publication-alternate-identifiers>
+
+    <publication-sources *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.sources.length)))"
+                         class="panel-container"
+                         [(collection)]="model.sources"
+                         (isValidForm)="changeValidState(1, 'publicationSourcesForm', $event)"
+                         [disabled]="!isEditMode"></publication-sources>
+
+    <publication-publishers *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.publishers.length)))"
+                            class="panel-container"
+                            [(collection)]="model.publishers"
+                            (isValidForm)="changeValidState(1, 'publicationPublishersForm', $event)"
+                            [disabled]="!isEditMode"></publication-publishers>
+
+    <publication-coverages *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.coverages.length)))"
+                           class="panel-container"
+                           [(collection)]="model.coverages"
+                           (isValidForm)="changeValidState(1, 'publicationCoveragesForm', $event)"
+                           [disabled]="!isEditMode"></publication-coverages>
+
+    <div class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            {{ 'publication.citationsPanel.title' | translate }}
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.recommended' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form #citationsForm="ngForm">
+          <div class="row">
+            <mat-form-field class="col-sm-12 col-md-10">
+              <mat-label translate>publication.citationsPanel.citationTitle</mat-label>
+              <input matInput
+                     name="publicationCitationTitle"
+                     [(ngModel)]="model.citationTitle"
+                     [disabled]="!isEditMode">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-sm-4 col-md-2">
+              <mat-label translate>publication.citationsPanel.citationVolume</mat-label>
+              <input matInput
+                     type="number"
+                     name="publicationCitationVolume"
+                     #publicationCitationVolume="ngModel"
+                     [(ngModel)]="model.citationVolume"
+                     [disabled]="!isEditMode"
+                     min=1>
+              <mat-error *ngFor="let error of publicationCitationVolume.errors | keyvalue">
+                {{ 'publication.citationsPanel.errors.' + error.key | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4 col-md-2">
+              <mat-label translate>publication.citationsPanel.citationIssue</mat-label>
+              <input matInput
+                     type="number"
+                     name="publicationCitationIssue"
+                     #publicationCitationIssue="ngModel"
+                     [(ngModel)]="model.citationIssue"
+                     [disabled]="!isEditMode"
+                     min=1>
+              <mat-error *ngFor="let error of publicationCitationIssue.errors | keyvalue">
+                {{ 'publication.citationsPanel.errors.' + error.key | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4 col-md-2">
+              <mat-label translate>publication.citationsPanel.citationStartPage</mat-label>
+              <input matInput
+                     type="number"
+                     name="publicationCitationStartPage"
+                     #publicationCitationStartPage="ngModel"
+                     [(ngModel)]="model.citationStartPage"
+                     [disabled]="!isEditMode"
+                     min=1>
+              <mat-error *ngFor="let error of publicationCitationStartPage.errors | keyvalue">
+                {{ 'publication.citationsPanel.errors.' + error.key | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4 col-md-2">
+              <mat-label translate>publication.citationsPanel.citationEndPage</mat-label>
+              <input matInput
+                     type="number"
+                     name="publicationCitationEndPage"
+                     #publicationCitationEndPage="ngModel"
+                     [(ngModel)]="model.citationEndPage"
+                     [disabled]="!isEditMode"
+                     min=1>
+              <mat-error *ngFor="let error of publicationCitationEndPage.errors | keyvalue">
+                {{ 'publication.citationsPanel.errors.' + error.key | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4 col-md-2">
+              <mat-label translate>publication.citationsPanel.citationEdition</mat-label>
+              <input matInput
+                     type="number"
+                     name="publicationCitationEdition"
+                     #publicationCitationEdition="ngModel"
+                     [(ngModel)]="model.citationEdition"
+                     [disabled]="!isEditMode"
+                     min=1>
+              <mat-error *ngFor="let error of publicationCitationEdition.errors | keyvalue">
+                {{ 'publication.citationsPanel.errors.' + error.key | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-sm-12 col-md-6">
+              <mat-label translate>publication.citationsPanel.citationConferencePlace</mat-label>
+              <input matInput
+                     name="publicationCitationConferencePlace"
+                     [(ngModel)]="model.citationConferencePlace"
+                     [disabled]="!isEditMode">
+            </mat-form-field>
+
+            <date-selector class="col-sm-4 col-md-2"
+                           name="publicationCitationConferenceStartDate"
+                           [(ngModel)]="model.citationConferenceStartDate"
+                           placeholder="{{ 'publication.citationsPanel.citationConferenceStartDate' | translate }}"
+                           [disabled]="!isEditMode">
+            </date-selector>
+
+            <date-selector class="col-sm-4 col-md-2"
+                           name="publicationCitationConferenceEndDate"
+                           [(ngModel)]="model.citationConferenceEndDate"
+                           placeholder="{{ 'publication.citationsPanel.citationConferenceEndDate' | translate }}"
+                           [disabled]="!isEditMode">
+            </date-selector>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <publication-audiences *ngIf="isEditMode || (!isEditMode && (!hideEmptyPanels || (hideEmptyPanels && model.audiences.length)))"
+                           class="panel-container"
+                           [(collection)]="model.audiences"
+                           (isValidForm)="changeValidState(1, 'publicationAudiencesForm', $event)"
+                           [disabled]="!isEditMode"></publication-audiences>
+
+    <publication-step-actions nextBtnText="{{ 'publication.base.nextStepBtn' | translate }}"
+                              backBtnText="{{ 'publication.base.backStepBtn' | translate  }}"
+                              [disableNextBtn]="!steps[1].isValid && isEditMode"></publication-step-actions>
+  </mat-step>
+
+  <mat-step #matStep3
+            [completed]="steps[2].isValid || !isEditMode"
+            [hasError]="!steps[2].isValid && isEditMode && matStep3.interacted"
+            errorMessage="{{ 'publication.base.stepRequiredError' | translate }}">
+    <ng-template matStepLabel>
+      {{ 'publication.base.licenseStepTitle' | translate }}
+    </ng-template>
+
+    <div class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            {{ 'publication.accessRightsPanel.title' | translate }}
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.mandatory' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form #rightsForm="ngForm">
+          <div class="row">
+            <div class="form-group col-sm-12 col-md-10">
+              <mat-radio-group color="primary"
+                               name="publicationAccessRight"
+                               [ngModel]="model.accessRightId"
+                               (ngModelChange)="changeAccessRight($event)"
+                               [disabled]="!isEditMode"
+                               required>
+                <mat-radio-button *ngFor="let right of accessRights"
+                                  [value]="right.id"
+                                  style="display: block; margin-bottom: 1rem;">
+                  <span *ngIf="translateService.currentLang === translateService.defaultLang">
+                    {{ right?.name }} ({{ right?.nameEn}})
+                  </span>
+
+                  <span *ngIf="translateService.currentLang !== translateService.defaultLang">
+                    {{ right?.nameEn}}
+                  </span>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <ng-container *ngIf="model.accessRight?.alias === 'embargoed access'">
+              <date-selector class="col-sm-12 col-md-3"
+                             name="publicationEmbargoPeriodStart"
+                             [(ngModel)]="model.embargoPeriodStart"
+                             placeholder="{{ 'publication.accessRightsPanel.embargoPeriodStart' | translate }}"
+                             [disabled]="!isEditMode"
+                             [required]="true">
+              </date-selector>
+
+              <date-selector class="col-sm-12 col-md-3"
+                             name="publicationEmbargoPeriodEnd"
+                             [(ngModel)]="model.embargoPeriodEnd"
+                             placeholder="{{ 'publication.accessRightsPanel.embargoPeriodEnd' | translate }}"
+                             [disabled]="!isEditMode"
+                             [required]="true">
+              </date-selector>
+            </ng-container>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="panel-container">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="panel-title-space">
+            {{ 'publication.licenseTypePanel.title' | translate }}
+            <span class="cardinality-text">
+              {{ 'publication.cardinality.recommended' | translate }}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form #licenseForm="ngForm">
+          <div class="row">
+            <div class="col-sm-12 col-md-10">
+              <ab-nomenclature-select name="publicationLicenseType"
+                                      restUrl="/api/licenseType"
+                                      placeholder="{{ 'publication.licenseTypePanel.licenseType' | translate }}"
+                                      [(ngModel)]="model.licenseType"
+                                      (ngModelChange)="model.licenseTypeId = $event.id"
+                                      [disabled]="!isEditMode"></ab-nomenclature-select>
+            </div>
+
+            <!-- TODO: Move in constant -->
+            <ng-container *ngIf="model.licenseType?.alias === 'other'">
+              <mat-form-field class="col-sm-12 col-lg-10">
+                <mat-label translate>publication.licenseTypePanel.otherLicenseCondition</mat-label>
+                <input matInput
+                       name="publicationOtherLicenseCondition"
+                       [(ngModel)]="model.otherLicenseCondition"
+                       [disabled]="!isEditMode">
+              </mat-form-field>
+
+              <mat-form-field class="col-sm-12 col-lg-10">
+                <mat-label translate>publication.licenseTypePanel.otherLicenseUrl</mat-label>
+                <input matInput
+                       name="publicationOtherLicenseUrl"
+                       [(ngModel)]="model.otherLicenseUrl"
+                       [disabled]="!isEditMode">
+              </mat-form-field>
+            </ng-container>
+
+            <date-selector class="col-sm-12 col-md-3"
+                           name="publicationLicenseStartDate"
+                           [(ngModel)]="model.licenseStartDate"
+                           placeholder="{{ 'publication.licenseTypePanel.licenseStartDate' | translate }}"
+                           [disabled]="!isEditMode"></date-selector>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <publication-step-actions nextBtnText="{{ 'publication.base.nextStepBtn' | translate }}"
+                              backBtnText="{{ 'publication.base.backStepBtn' | translate  }}"
+                              [disableNextBtn]="!steps[2].isValid && isEditMode"></publication-step-actions>
+  </mat-step>
+
+  <mat-step #matStep4
+            [completed]="model?.files?.length || !isEditMode"
+            [hasError]="!model?.files?.length && isEditMode && matStep4.interacted"
+            errorMessage="{{ 'publication.base.stepRequiredError' | translate }}">
+    <ng-template matStepLabel>
+      {{ 'publication.base.attachedFilesStepTitle' | translate }}
+    </ng-template>
+
+    <publication-files class="panel-container"
+                       [(files)]="model.files"
+                       (filesChange)="changeValidState(3, 'publicationFiles', $event?.length > 0)"
+                       [canDeleteUploaded]="canEditPublication || !model.id"
+                       [disabled]="!isEditMode"></publication-files>
+
+    <publication-step-actions nextBtnText="{{ 'publication.base.nextStepBtn' | translate }}"
+                              backBtnText="{{ 'publication.base.backStepBtn' | translate  }}"
+                              [disableNextBtn]="!model?.files?.length && isEditMode"></publication-step-actions>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>
+      {{ 'publication.base.publishStepTitle' | translate }}
+    </ng-template>
+
+    <form #classificationsForm="ngForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <ab-nomenclature-select name="publicationModeratorInstitution"
+                                  placeholder="{{ 'publication.publishPanel.moderatorInstitution' | translate }}"
+                                  restUrl="/api/Institution/Select"
+                                  [(ngModel)]="model.moderatorInstitution"
+                                  (ngModelChange)="moderatorInstitutionChange($event)"
+                                  [textTemplate]="translateService.currentLang === translateService.defaultLang ? '{name} ({nameEn})' : '{nameEn}'"
+                                  [filter]="{searchInForeignNameOnly: translateService.currentLang !== translateService.defaultLang}"
+                                  [disabled]="!isEditMode"
+                                  [required]="true"></ab-nomenclature-select>
+        </div>
+
+        <div *ngFor="let hierarchyItem of hierarchyItems"
+             [ngStyle]="{'margin-left.em': hierarchyItem.level, 'margin-top.em': !hierarchyItem.parentId ? 1 : 0}"
+             class="col-sm-12">
+          <span *ngIf="hierarchyItem.hasChildren">{{ hierarchyItem.name }}</span>
+          <mat-checkbox *ngIf="!hierarchyItem.hasChildren"
+                        name="hieararchy-item-{{hierarchyItem.id}}"
+                        color="primary"
+                        [(ngModel)]="hierarchyItem.isSelected"
+                        (change)="changedItem(hierarchyItem)"
+                        [disabled]="!isEditMode">
+            {{ hierarchyItem.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <button mat-raised-button
+                matStepperPrevious
+                style="margin-right: 10px;">
+          <mat-icon>arrow_back</mat-icon>
+          {{ 'publication.base.backBtn' | translate }}
+        </button>
+
+        <ng-container *ngIf="isEditMode && (model.status === publicationStatuses.draft
+                    || model.status === publicationStatuses.notApproved)">
+          <button mat-raised-button
+                  (click)="savePublication(publicationStatuses.draft)"
+                  style="margin-right: 10px"
+                  class="btn-success"
+                  [disabled]="!isValid">
+            <mat-icon>note</mat-icon>
+            {{ 'publication.publishPanel.saveDraft' | translate }}
+          </button>
+
+          <button mat-raised-button
+                  (click)="savePublication(publicationStatuses.pendingApproval)"
+                  style="margin-right: 10px"
+                  class="btn-success"
+                  [disabled]="!isValid">
+            <mat-icon>visibility</mat-icon>
+            {{ 'publication.publishPanel.savePendingApproval' | translate }}
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isEditMode && canPublish">
+          <button mat-raised-button
+                  (click)="savePublication(publicationStatuses.published)"
+                  style="margin-right: 10px"
+                  class="btn-success"
+                  [disabled]="!isValid">
+            <mat-icon>desktop_windows</mat-icon>
+            {{ 'publication.publishPanel.savePublished' | translate }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

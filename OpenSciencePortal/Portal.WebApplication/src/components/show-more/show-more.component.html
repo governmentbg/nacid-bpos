@@ -1,0 +1,20 @@
+<div *ngFor="let item of collection;let i=index">
+  <ng-container *ngIf="showMore || i < visibleItems"
+                [ngTemplateOutlet]="itemTemplate"
+                [ngTemplateOutletContext]="{ $implicit: item, index: i }">
+  </ng-container>
+</div>
+
+<div *ngIf="collection?.length > 4"
+     style="margin-top: 8px">
+  <span *ngIf="!showMore"
+        class="link"
+        (click)="show()">
+    {{ 'category.showMore' | translate}}
+  </span>
+  <span *ngIf="showMore"
+        class="link"
+        (click)="hide()">
+    {{ 'category.showLess' | translate}}
+  </span>
+</div>

@@ -1,0 +1,59 @@
+<div ngbDropdown
+     #dropdown="ngbDropdown">
+  <div ngbDropdownToggle
+       class="select-dropdown-toggle d-flex justify-content-between">
+
+    <ng-container [ngTemplateOutlet]="selectedItemTemplate || defaultSelectedItemTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: nomenclature?.name || nomenclature?.alias }">
+    </ng-container>
+
+    <span class="select-dropdown-indicator">
+      <fa-icon [icon]="faAngleDown"
+               [fixedWidth]="true"
+               [class.rotate-180]="isOpen"></fa-icon>
+    </span>
+  </div>
+
+
+  <div ngbDropdownMenu
+       #dropdownMenu
+       class="select-dropdown-menu"
+       style="position: relative;min-height: 150px;"
+       (wheel)="handleScroll($event)">
+
+    <div class="search">
+      <input type="text"
+             [formControl]="searchControl"
+             placeholder="{{ 'nomenclatureSelect.searchPlaceholder' | translate}}" />
+      <fa-icon [icon]="faSearch"
+               *ngIf="!loading"
+               style="align-self: center;margin-left: 5px; margin-right: 4px;"></fa-icon>
+
+      <lightbulb-icon animate
+                      *ngIf="loading"
+                      width="25px"
+                      height="25px"
+                      style="align-self: center"
+                      class="loading-indicator"></lightbulb-icon>
+    </div>
+
+    <button *ngFor="let item of collection"
+            ngbDropdownItem
+            [class.selected]="nomenclature?.id === item.id"
+            (click)="selectItem(item)">
+      <ng-container [ngTemplateOutlet]="dropdownItemTemplate || defaultDropdownItemTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: item }">
+      </ng-container>
+    </button>
+  </div>
+</div>
+
+<ng-template #defaultDropdownItemTemplate
+             let-item>
+  {{item.name}}
+</ng-template>
+
+<ng-template #defaultSelectedItemTemplate
+             let-value>
+  {{value || placeholder}}
+</ng-template>
